@@ -3,6 +3,9 @@ class Actor:
     def __init__(self, m_ip):
         self.IP = m_ip
 
+    def get_ip(self):
+        return self.IP
+
     # IMPLEMENT ACTIONS
 
 
@@ -57,16 +60,16 @@ class Computer(Switch):
         pass
 
 
-# DIGITAL CLASSES
+# VIRTUAL CLASSES
 
-# DIGITAL-ACTOR
-class DActor(Actor):
+# VIRTUAL ACTOR
+class VActor(Actor):
     # TODO
     pass
 
-    
-# DIGITAL-SWITCH
-class DSwitch(Switch):
+
+# VIRTUAL SWITCH
+class VSwitch(Switch):
     def switch(self):
         # TODO
         pass

@@ -4,6 +4,9 @@ class Sensor:
         self.IP = m_ip
         self.initialize_sensor()
 
+    def get_ip(self):
+        return self.IP
+
     def initialize_sensor(self):
         pass
 
