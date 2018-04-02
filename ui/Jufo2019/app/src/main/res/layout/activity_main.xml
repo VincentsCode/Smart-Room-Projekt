@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.fabian.jufo2019.MainActivity">
+
+    <Button
+        android:id="@+id/ButtonLicht"
+        android:layout_width="133dp"
+        android:layout_height="128dp"
+        android:layout_alignEnd="@+id/textureView"
+        android:layout_alignRight="@+id/textureView"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="21dp"
+        android:layout_marginRight="21dp"
+        android:onClick="openlightActivity"
+        android:text="Licht"
+        tools:layout_editor_absoluteX="46dp"
+        tools:layout_editor_absoluteY="367dp" />
+
+    <Button
+        android:id="@+id/ButtonHeizung"
+        android:layout_width="133dp"
+        android:layout_height="128dp"
+        android:layout_alignLeft="@+id/ButtonMatchTraining"
+        android:layout_alignStart="@+id/ButtonMatchTraining"
+        android:layout_below="@+id/ButtonMatchTraining"
+        android:layout_marginTop="23dp"
+        android:onClick="openHeaterActivity"
+        android:text="Heizung"
+        tools:layout_editor_absoluteX="207dp"
+        tools:layout_editor_absoluteY="367dp" />
+
+    <TextureView
+        android:id="@+id/textureView"
+        android:layout_width="337dp"
+        android:layout_height="169dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="13dp"
+        tools:layout_editor_absoluteX="24dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <Button
+        android:id="@+id/ButtonMatchTraining"
+        android:layout_width="133dp"
+        android:layout_height="128dp"
+        android:layout_alignLeft="@+id/textureView"
+        android:layout_alignStart="@+id/textureView"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="22dp"
+        android:layout_marginStart="22dp"
+        android:text="Training anpassen" />
+
+    <Button
+        android:id="@+id/ButtonRooms"
+        android:layout_width="133dp"
+        android:layout_height="128dp"
+        android:layout_alignLeft="@+id/ButtonLicht"
+        android:layout_alignStart="@+id/ButtonLicht"
+        android:layout_alignTop="@+id/ButtonHeizung"
+        android:text="Räume" />
+
+</RelativeLayout>
