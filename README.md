@@ -2,9 +2,9 @@
  Jufo 2019: Privates Repository 
  
 # Software-Locations
-  Android-Client: \ui\android\app\build\outputs\apk\debug\app-debug.apk
-  Desktop-Client: \ui\desktop\app\bin\Debug\app.exe
-  WebView-Client: TODO
+  Android-Client: \ui\android\app\build\outputs\apk\debug\app-debug.apk <br>
+  Desktop-Client: \ui\desktop\app\bin\Debug\app.exe <br>
+  WebView-Client: TODO <br>
   
   Server: \server\Server.py
   
