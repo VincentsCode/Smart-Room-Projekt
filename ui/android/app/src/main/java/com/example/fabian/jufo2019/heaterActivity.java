@@ -16,8 +16,8 @@ public class heaterActivity extends AppCompatActivity {
         final TextView temp;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_heater);
-        temp = (TextView) findViewById(R.id.textView5);
-        seekBar = (SeekBar) findViewById(R.id.seekBarHeater);
+        temp = findViewById(R.id.textView5);
+        seekBar = findViewById(R.id.seekBarHeater);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
