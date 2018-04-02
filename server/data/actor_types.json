@@ -1,0 +1,15 @@
+{
+  "Heater": {
+    "name": "Heater",
+    "function_init": {
+
+    },
+    "function_getData": {
+
+    }
+  }
+  ,
+  "Computer": {
+    "name": "Computer"
+  }
+}

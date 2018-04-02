@@ -1,76 +1,65 @@
-# ABSTRACT ACTOR - DO NOT INSTANTIATE
-class Actor:
-    def __init__(self, m_ip):
-        self.IP = m_ip
-
-    def get_ip(self):
-        return self.IP
-
-    # IMPLEMENT ACTIONS
+import socket
+import Constants
 
 
-# BASIC HEATER
-class Heater(Actor):
-    # TODO
-    # Intelligent Heat-Regulator?
-    def __init__(self, m_ip):
-        super().__init__(m_ip)
+# ABSTRACT SWITCH WITH N STATES
+class AdvancedSwitch:
+    """
+    m_IP (string): IP of the Actor
+    m_port (int): Port of the Actor
+    states_count (int): Number of possible states
+    state_names (string-array): Names of the States e.g. ["An", "StandBy", "AUS"]
+    state (int): current state
+    connected (boolean): is the device connected
 
+    connect(): connects to the actor
+    switch(): circles through states
+    switch_to(int): switches to a certain state
+    get_state(boolean): returns the current state as text or int or -1 if disconnected
+    """
+    def __init__(self, m_ip, m_port, states_count, state_names):
+        self.ip = m_ip
+        self.port = m_port
+        self.states_count = states_count
+        self.state_names = state_names
+        self.state = 0
 
-# ABSTRACT SWITCH - DO NOT INSTANTIATE
-class Switch(Actor):
-    def __init__(self, m_ip):
-        super().__init__(m_ip)
-        self.on = False
+        self.socket = None
+        self.connected = False
 
-    def switch(self):
-        # IMPLEMENT
-        self.on = not self.on
-
-    def turn_off(self):
-        if self.on:
-            self.switch()
-            self.on = False
-
-    def turn_on(self):
-        if not self.on:
-            self.switch()
-            self.on = True
-
-    def is_on(self):
-        return self.on
-
-    def is_off(self):
-        return not self.on
-
-
-# BASIC LIGHT
-class Light(Switch):
-    def switch(self):
+    def connect(self):
         # TODO
-        # SEND IR-BEAM
-        pass
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket.connect((self.ip, self.port))
+        self.connected = True
 
-
-# BASIC COMPUTER
-class Computer(Switch):
     def switch(self):
-        # TODO
-        # PUT RPi-Zero W o.ä. in Pwr-Btn-Line || WAKE ON LAN (WOL)
-        pass
+        if self.connected:
+            if (self.state + 1) <= self.states_count:
+                self.switch_to(self.state + 1)
+                self.state = self.state + 1
+            else:
+                self.switch_to(0)
+                self.state = 0
+        else:
+            return False
 
+    def switch_to(self, n_state):
+        if self.connected:
+            self.socket.sendall(n_state)
+            self.socket.recv(Constants.ANSWER_BYTES_LENGTH)
+            if ()
+        else:
+            return False
 
-# VIRTUAL CLASSES
-
-# VIRTUAL ACTOR
-class VActor(Actor):
-    # TODO
-    pass
-
-
-# VIRTUAL SWITCH
-class VSwitch(Switch):
-    def switch(self):
-        # TODO
-        pass
-
+    def get_state(self, as_string=False):
+        if self.connected:
+            if as_string:
+                return self.state_names[self.state]
+            else:
+                return self.state
+        else:
+            if as_string:
+                return "Disconnected"
+            else:
+                return -1
