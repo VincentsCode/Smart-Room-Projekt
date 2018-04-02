@@ -1,0 +1,7 @@
+SWIPE-MENU
+ ÜBERSICHT - Graph (Geräte heute), An/Aus (einzeln), Temperatur usw.
+ GEWOHNHEITS-ÜBERSICHT - Bild (Grundriss + Bewegung heute), Wochentage + Immer (anklickbar)
+	WOCHENTAGE - Gewohnheiten (editierbar), Bild (Grundriss + Bewegung an diesem Tag)
+ LIVE-KAMERA - Live Kamera
+PUNKTE
+ EINSTELLUNGEN - Systemeinstellungen

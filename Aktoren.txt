@@ -1,0 +1,7 @@
+AKTOREN					TYP
+ - Computer 			3-SWITCH
+ - Heizung				N-REGULATOR
+ - Licht				2-SWITCH
+ - Musik				2-SWITCH
+ - Fenster				2-SWITCH
+ - Kaffee				1-BUTTON
