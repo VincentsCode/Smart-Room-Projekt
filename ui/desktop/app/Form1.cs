@@ -10,6 +10,25 @@ using System.Windows.Forms;
 
 namespace app {
     public partial class Window : Form {
+
+        Color[] graphColors = { // 14 colors
+            Color.FromArgb(52, 189, 157),
+            Color.FromArgb(68, 204, 118),
+            Color.FromArgb(57, 154, 216),
+            Color.FromArgb(152, 89, 178),
+            Color.FromArgb(240, 194, 48),
+            Color.FromArgb(228, 123, 44),
+            Color.FromArgb(228, 70, 62),
+            Color.FromArgb(43, 161, 135),
+            Color.FromArgb(58, 174, 102),
+            Color.FromArgb(45, 130, 183),
+            Color.FromArgb(139, 69, 170),
+            Color.FromArgb(241, 153, 39),
+            Color.FromArgb(207, 79, 13),
+            Color.FromArgb(190, 51, 44)
+        };
+        Random rnd = new Random();
+
         public Window() {
             InitializeComponent();
         }
@@ -139,12 +158,57 @@ namespace app {
 
         private void loadÜbersicht() {
             clearPanel();
-            Label n = new Label();
-            n.Text = "HIASD";
-            n.Show();
-            n.Visible = true;
-            contentPanel.Controls.Add(n);
+            // TODO ACQUIRE REAL LOG
+            Dictionary<string, int> devices = new Dictionary<string, int>();
+            //          "NAME", time in min
+            devices.Add("Computer0", 200);
+            devices.Add("Heater0", 30);
+            devices.Add("Light0", 420);
+            devices.Add("Computer1", 30);
+            devices.Add("Heater1", 32);
+            devices.Add("Light1", 42);
+            devices.Add("Computer2", 20);
+            devices.Add("Heater2", 330);
+            devices.Add("Light2", 590);
+            var l = devices.OrderBy(key => key.Key);
+            devices = l.ToDictionary((keyItem) => keyItem.Key, (valueItem) => valueItem.Value);
+
+            TableLayoutPanel frame = new TableLayoutPanel();
+            frame.Name = "chart";
+            frame.RowCount = 1;
+            frame.ColumnCount = devices.Count;
+            frame.Size = new Size(devices.Count * 40, 350);
+            double oneMinuteSize = 0.2430555555555556;
+            for (int i = 0; i < devices.Count; i++) {
+                Panel p = new Panel();
+                p.BackColor = graphColors[i];
+                p.Width = 32;
+                p.Height = (int) (devices.Values.ToArray()[i] * oneMinuteSize);
+                p.Dock = DockStyle.Bottom;
+                p.Margin = new Padding(4, 0, 4, 0);
+                p.Paint += new PaintEventHandler(panel1_Paint);
+                p.Name = devices.Keys.ToArray()[i];
+                p.Show();
+                frame.Controls.Add(p, i, 0);
+            }
+            frame.BackColor = Color.FromArgb(235, 236, 237);
+            frame.Show();
+            contentPanel.Controls.Add(frame);
         }
+
+        private void panel1_Paint(object sender, PaintEventArgs e) {
+            var p = sender as Panel;
+            if (p.Height > 50) {
+                var g = e.Graphics; FontFamily fontFamily = new FontFamily("Segoe UI");
+                Font font = new Font(fontFamily, 10, FontStyle.Regular, GraphicsUnit.Point);
+                g.TranslateTransform(p.Width / 2, p.Height / 2);
+                g.RotateTransform(-90);
+                string mText = p.Name;
+                SizeF textSize = g.MeasureString(mText, font);
+                g.DrawString(mText, font, Brushes.White, -(textSize.Width / 2), -(textSize.Height / 2));
+            }
+        }
+
 
         private void loadMontag() {
             clearPanel();
@@ -176,5 +240,12 @@ namespace app {
             clearPanel();
         }
         // END: Preset-Loader
+
+        // BEGIN: COMMUNICATION
+        // TODO
+        private string getDeviceLogToday() {
+            return "";
+        }
+        // END: COMMUNICATION
     }
 }

@@ -17,3 +17,4 @@ C:\Users\vince\Desktop\Jufo 2019 [PRIVAT]\ui\desktop\app\obj\Debug\app.csproj.Ge
 C:\Users\vince\Desktop\Jufo 2019 [PRIVAT]\ui\desktop\app\obj\Debug\app.csproj.CoreCompileInputs.cache
 C:\Users\vince\Desktop\Jufo 2019 [PRIVAT]\ui\desktop\app\obj\Debug\app.exe
 C:\Users\vince\Desktop\Jufo 2019 [PRIVAT]\ui\desktop\app\obj\Debug\app.pdb
+C:\Users\vince\Desktop\Jufo 2019 [PRIVAT]\ui\desktop\app\bin\Debug\Panteam.MetroChart.dll

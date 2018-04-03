@@ -28,43 +28,48 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Window));
             this.iconPanel = new System.Windows.Forms.Panel();
             this.iconLabel = new System.Windows.Forms.Label();
+            this.icon = new System.Windows.Forms.Panel();
             this.sidePanel = new System.Windows.Forms.Panel();
-            this.übersichtBtn = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.grabPanel = new System.Windows.Forms.Panel();
-            this.contentPanel = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.montagBtn = new System.Windows.Forms.Panel();
-            this.dienstagBtn = new System.Windows.Forms.Panel();
-            this.mittwochBtn = new System.Windows.Forms.Panel();
-            this.donnerstagBtn = new System.Windows.Forms.Panel();
-            this.freitagBtn = new System.Windows.Forms.Panel();
-            this.samstagBtn = new System.Windows.Forms.Panel();
-            this.sonntagBtn = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.live_kameraBtn = new System.Windows.Forms.Panel();
-            this.label10 = new System.Windows.Forms.Label();
             this.einstellungenBtn = new System.Windows.Forms.Panel();
             this.label11 = new System.Windows.Forms.Label();
-            this.closeBtn = new System.Windows.Forms.Panel();
             this.panel14 = new System.Windows.Forms.Panel();
+            this.live_kameraBtn = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
             this.panel12 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.montagBtn = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.dienstagBtn = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.mittwochBtn = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.donnerstagBtn = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.freitagBtn = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.samstagBtn = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.sonntagBtn = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.übersichtBtn = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.übersichtIcon = new System.Windows.Forms.Panel();
-            this.icon = new System.Windows.Forms.Panel();
+            this.grabPanel = new System.Windows.Forms.Panel();
+            this.contentPanel = new System.Windows.Forms.Panel();
+            this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.closeBtn = new System.Windows.Forms.Panel();
             this.iconPanel.SuspendLayout();
             this.sidePanel.SuspendLayout();
-            this.übersichtBtn.SuspendLayout();
+            this.einstellungenBtn.SuspendLayout();
+            this.live_kameraBtn.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.montagBtn.SuspendLayout();
             this.dienstagBtn.SuspendLayout();
@@ -73,8 +78,9 @@
             this.freitagBtn.SuspendLayout();
             this.samstagBtn.SuspendLayout();
             this.sonntagBtn.SuspendLayout();
-            this.live_kameraBtn.SuspendLayout();
-            this.einstellungenBtn.SuspendLayout();
+            this.übersichtBtn.SuspendLayout();
+            this.contentPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.SuspendLayout();
             // 
             // iconPanel
@@ -98,6 +104,15 @@
             this.iconLabel.TabIndex = 1;
             this.iconLabel.Text = "PROJEKT\r\nSMART ROOM";
             // 
+            // icon
+            // 
+            this.icon.BackgroundImage = global::app.Properties.Resources._00_Icon;
+            this.icon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.icon.Location = new System.Drawing.Point(12, 12);
+            this.icon.Name = "icon";
+            this.icon.Size = new System.Drawing.Size(52, 52);
+            this.icon.TabIndex = 0;
+            // 
             // sidePanel
             // 
             this.sidePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(237)))));
@@ -112,58 +127,71 @@
             this.sidePanel.Size = new System.Drawing.Size(233, 579);
             this.sidePanel.TabIndex = 1;
             // 
-            // übersichtBtn
+            // einstellungenBtn
             // 
-            this.übersichtBtn.Controls.Add(this.label1);
-            this.übersichtBtn.Controls.Add(this.übersichtIcon);
-            this.übersichtBtn.Location = new System.Drawing.Point(12, 21);
-            this.übersichtBtn.Name = "übersichtBtn";
-            this.übersichtBtn.Size = new System.Drawing.Size(211, 50);
-            this.übersichtBtn.TabIndex = 0;
-            this.übersichtBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.übersichtBtn_MouseClick);
+            this.einstellungenBtn.Controls.Add(this.label11);
+            this.einstellungenBtn.Controls.Add(this.panel14);
+            this.einstellungenBtn.Location = new System.Drawing.Point(12, 505);
+            this.einstellungenBtn.Name = "einstellungenBtn";
+            this.einstellungenBtn.Size = new System.Drawing.Size(211, 50);
+            this.einstellungenBtn.TabIndex = 3;
+            this.einstellungenBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.einstellungenBtn_MouseClick);
             // 
-            // label1
+            // label11
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(46, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(107, 25);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "ÜBERSICHT";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.übersichtBtn_MouseClick);
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.Black;
+            this.label11.Location = new System.Drawing.Point(46, 12);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(153, 25);
+            this.label11.TabIndex = 1;
+            this.label11.Text = "EINSTELLUNGEN";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label11.MouseClick += new System.Windows.Forms.MouseEventHandler(this.einstellungenBtn_MouseClick);
             // 
-            // grabPanel
+            // panel14
             // 
-            this.grabPanel.BackColor = System.Drawing.Color.White;
-            this.grabPanel.Location = new System.Drawing.Point(233, 0);
-            this.grabPanel.Name = "grabPanel";
-            this.grabPanel.Size = new System.Drawing.Size(977, 79);
-            this.grabPanel.TabIndex = 3;
-            this.grabPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.grabPanel_MouseDown);
-            this.grabPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.grabPanel_MouseMove);
-            this.grabPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.grabPanel_MouseUp);
+            this.panel14.BackgroundImage = global::app.Properties.Resources._04_Einstellungen;
+            this.panel14.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panel14.Location = new System.Drawing.Point(10, 10);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(30, 30);
+            this.panel14.TabIndex = 0;
+            this.panel14.MouseClick += new System.Windows.Forms.MouseEventHandler(this.einstellungenBtn_MouseClick);
             // 
-            // contentPanel
+            // live_kameraBtn
             // 
-            this.contentPanel.Location = new System.Drawing.Point(239, 80);
-            this.contentPanel.Name = "contentPanel";
-            this.contentPanel.Size = new System.Drawing.Size(990, 555);
-            this.contentPanel.TabIndex = 4;
+            this.live_kameraBtn.Controls.Add(this.label10);
+            this.live_kameraBtn.Controls.Add(this.panel12);
+            this.live_kameraBtn.Location = new System.Drawing.Point(12, 430);
+            this.live_kameraBtn.Name = "live_kameraBtn";
+            this.live_kameraBtn.Size = new System.Drawing.Size(211, 50);
+            this.live_kameraBtn.TabIndex = 2;
+            this.live_kameraBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.live_kameraBtn_MouseClick);
             // 
-            // label2
+            // label10
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(58, 108);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(143, 25);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "TAGESABLÄUFE";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.Black;
+            this.label10.Location = new System.Drawing.Point(46, 12);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(129, 25);
+            this.label10.TabIndex = 1;
+            this.label10.Text = "LIVE-KAMERA";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label10.MouseClick += new System.Windows.Forms.MouseEventHandler(this.live_kameraBtn_MouseClick);
+            // 
+            // panel12
+            // 
+            this.panel12.BackgroundImage = global::app.Properties.Resources._03_Live_Cam;
+            this.panel12.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panel12.Location = new System.Drawing.Point(10, 10);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(30, 30);
+            this.panel12.TabIndex = 0;
+            this.panel12.MouseClick += new System.Windows.Forms.MouseEventHandler(this.live_kameraBtn_MouseClick);
             // 
             // tableLayoutPanel1
             // 
@@ -202,72 +230,6 @@
             this.montagBtn.TabIndex = 0;
             this.montagBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.montagBtn_MouseClick);
             // 
-            // dienstagBtn
-            // 
-            this.dienstagBtn.Controls.Add(this.label4);
-            this.dienstagBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dienstagBtn.Location = new System.Drawing.Point(1, 39);
-            this.dienstagBtn.Margin = new System.Windows.Forms.Padding(1);
-            this.dienstagBtn.Name = "dienstagBtn";
-            this.dienstagBtn.Size = new System.Drawing.Size(152, 36);
-            this.dienstagBtn.TabIndex = 1;
-            this.dienstagBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dienstagBtn_MouseClick);
-            // 
-            // mittwochBtn
-            // 
-            this.mittwochBtn.Controls.Add(this.label5);
-            this.mittwochBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mittwochBtn.Location = new System.Drawing.Point(1, 77);
-            this.mittwochBtn.Margin = new System.Windows.Forms.Padding(1);
-            this.mittwochBtn.Name = "mittwochBtn";
-            this.mittwochBtn.Size = new System.Drawing.Size(152, 36);
-            this.mittwochBtn.TabIndex = 2;
-            this.mittwochBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mittwochBtn_MouseClick);
-            // 
-            // donnerstagBtn
-            // 
-            this.donnerstagBtn.Controls.Add(this.label6);
-            this.donnerstagBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.donnerstagBtn.Location = new System.Drawing.Point(1, 115);
-            this.donnerstagBtn.Margin = new System.Windows.Forms.Padding(1);
-            this.donnerstagBtn.Name = "donnerstagBtn";
-            this.donnerstagBtn.Size = new System.Drawing.Size(152, 36);
-            this.donnerstagBtn.TabIndex = 3;
-            this.donnerstagBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.donnerstagBtn_MouseClick);
-            // 
-            // freitagBtn
-            // 
-            this.freitagBtn.Controls.Add(this.label7);
-            this.freitagBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.freitagBtn.Location = new System.Drawing.Point(1, 153);
-            this.freitagBtn.Margin = new System.Windows.Forms.Padding(1);
-            this.freitagBtn.Name = "freitagBtn";
-            this.freitagBtn.Size = new System.Drawing.Size(152, 36);
-            this.freitagBtn.TabIndex = 4;
-            this.freitagBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.freitagBtn_MouseClick);
-            // 
-            // samstagBtn
-            // 
-            this.samstagBtn.Controls.Add(this.label8);
-            this.samstagBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.samstagBtn.Location = new System.Drawing.Point(1, 191);
-            this.samstagBtn.Margin = new System.Windows.Forms.Padding(1);
-            this.samstagBtn.Name = "samstagBtn";
-            this.samstagBtn.Size = new System.Drawing.Size(152, 36);
-            this.samstagBtn.TabIndex = 5;
-            this.samstagBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.samstagBtn_MouseClick);
-            // 
-            // sonntagBtn
-            // 
-            this.sonntagBtn.Controls.Add(this.label9);
-            this.sonntagBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sonntagBtn.Location = new System.Drawing.Point(1, 229);
-            this.sonntagBtn.Margin = new System.Windows.Forms.Padding(1);
-            this.sonntagBtn.Name = "sonntagBtn";
-            this.sonntagBtn.Size = new System.Drawing.Size(152, 39);
-            this.sonntagBtn.TabIndex = 6;
-            this.sonntagBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.sonntagBtn_MouseClick);
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -278,6 +240,17 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "MONTAG";
             this.label3.MouseClick += new System.Windows.Forms.MouseEventHandler(this.montagBtn_MouseClick);
+            // 
+            // dienstagBtn
+            // 
+            this.dienstagBtn.Controls.Add(this.label4);
+            this.dienstagBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dienstagBtn.Location = new System.Drawing.Point(1, 39);
+            this.dienstagBtn.Margin = new System.Windows.Forms.Padding(1);
+            this.dienstagBtn.Name = "dienstagBtn";
+            this.dienstagBtn.Size = new System.Drawing.Size(152, 36);
+            this.dienstagBtn.TabIndex = 1;
+            this.dienstagBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dienstagBtn_MouseClick);
             // 
             // label4
             // 
@@ -290,6 +263,17 @@
             this.label4.Text = "DIENSTAG";
             this.label4.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dienstagBtn_MouseClick);
             // 
+            // mittwochBtn
+            // 
+            this.mittwochBtn.Controls.Add(this.label5);
+            this.mittwochBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mittwochBtn.Location = new System.Drawing.Point(1, 77);
+            this.mittwochBtn.Margin = new System.Windows.Forms.Padding(1);
+            this.mittwochBtn.Name = "mittwochBtn";
+            this.mittwochBtn.Size = new System.Drawing.Size(152, 36);
+            this.mittwochBtn.TabIndex = 2;
+            this.mittwochBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mittwochBtn_MouseClick);
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -300,6 +284,17 @@
             this.label5.TabIndex = 1;
             this.label5.Text = "MITTWOCH";
             this.label5.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mittwochBtn_MouseClick);
+            // 
+            // donnerstagBtn
+            // 
+            this.donnerstagBtn.Controls.Add(this.label6);
+            this.donnerstagBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.donnerstagBtn.Location = new System.Drawing.Point(1, 115);
+            this.donnerstagBtn.Margin = new System.Windows.Forms.Padding(1);
+            this.donnerstagBtn.Name = "donnerstagBtn";
+            this.donnerstagBtn.Size = new System.Drawing.Size(152, 36);
+            this.donnerstagBtn.TabIndex = 3;
+            this.donnerstagBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.donnerstagBtn_MouseClick);
             // 
             // label6
             // 
@@ -313,6 +308,17 @@
             this.label6.Text = "DONNERSTAG";
             this.label6.MouseClick += new System.Windows.Forms.MouseEventHandler(this.donnerstagBtn_MouseClick);
             // 
+            // freitagBtn
+            // 
+            this.freitagBtn.Controls.Add(this.label7);
+            this.freitagBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.freitagBtn.Location = new System.Drawing.Point(1, 153);
+            this.freitagBtn.Margin = new System.Windows.Forms.Padding(1);
+            this.freitagBtn.Name = "freitagBtn";
+            this.freitagBtn.Size = new System.Drawing.Size(152, 36);
+            this.freitagBtn.TabIndex = 4;
+            this.freitagBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.freitagBtn_MouseClick);
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -323,6 +329,17 @@
             this.label7.TabIndex = 1;
             this.label7.Text = "FREITAG";
             this.label7.MouseClick += new System.Windows.Forms.MouseEventHandler(this.freitagBtn_MouseClick);
+            // 
+            // samstagBtn
+            // 
+            this.samstagBtn.Controls.Add(this.label8);
+            this.samstagBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.samstagBtn.Location = new System.Drawing.Point(1, 191);
+            this.samstagBtn.Margin = new System.Windows.Forms.Padding(1);
+            this.samstagBtn.Name = "samstagBtn";
+            this.samstagBtn.Size = new System.Drawing.Size(152, 36);
+            this.samstagBtn.TabIndex = 5;
+            this.samstagBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.samstagBtn_MouseClick);
             // 
             // label8
             // 
@@ -335,6 +352,17 @@
             this.label8.Text = "SAMSTAG";
             this.label8.MouseClick += new System.Windows.Forms.MouseEventHandler(this.samstagBtn_MouseClick);
             // 
+            // sonntagBtn
+            // 
+            this.sonntagBtn.Controls.Add(this.label9);
+            this.sonntagBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sonntagBtn.Location = new System.Drawing.Point(1, 229);
+            this.sonntagBtn.Margin = new System.Windows.Forms.Padding(1);
+            this.sonntagBtn.Name = "sonntagBtn";
+            this.sonntagBtn.Size = new System.Drawing.Size(152, 39);
+            this.sonntagBtn.TabIndex = 6;
+            this.sonntagBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.sonntagBtn_MouseClick);
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -346,51 +374,94 @@
             this.label9.Text = "SONNTAG";
             this.label9.MouseClick += new System.Windows.Forms.MouseEventHandler(this.sonntagBtn_MouseClick);
             // 
-            // live_kameraBtn
+            // panel3
             // 
-            this.live_kameraBtn.Controls.Add(this.label10);
-            this.live_kameraBtn.Controls.Add(this.panel12);
-            this.live_kameraBtn.Location = new System.Drawing.Point(12, 430);
-            this.live_kameraBtn.Name = "live_kameraBtn";
-            this.live_kameraBtn.Size = new System.Drawing.Size(211, 50);
-            this.live_kameraBtn.TabIndex = 2;
-            this.live_kameraBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.live_kameraBtn_MouseClick);
+            this.panel3.BackgroundImage = global::app.Properties.Resources._02_Tagesabläufe;
+            this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panel3.Location = new System.Drawing.Point(22, 105);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(30, 30);
+            this.panel3.TabIndex = 1;
             // 
-            // label10
+            // label2
             // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.Black;
-            this.label10.Location = new System.Drawing.Point(46, 12);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(129, 25);
-            this.label10.TabIndex = 1;
-            this.label10.Text = "LIVE-KAMERA";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label10.MouseClick += new System.Windows.Forms.MouseEventHandler(this.live_kameraBtn_MouseClick);
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(58, 108);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(143, 25);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "TAGESABLÄUFE";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // einstellungenBtn
+            // übersichtBtn
             // 
-            this.einstellungenBtn.Controls.Add(this.label11);
-            this.einstellungenBtn.Controls.Add(this.panel14);
-            this.einstellungenBtn.Location = new System.Drawing.Point(12, 505);
-            this.einstellungenBtn.Name = "einstellungenBtn";
-            this.einstellungenBtn.Size = new System.Drawing.Size(211, 50);
-            this.einstellungenBtn.TabIndex = 3;
-            this.einstellungenBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.einstellungenBtn_MouseClick);
+            this.übersichtBtn.Controls.Add(this.label1);
+            this.übersichtBtn.Controls.Add(this.übersichtIcon);
+            this.übersichtBtn.Location = new System.Drawing.Point(12, 21);
+            this.übersichtBtn.Name = "übersichtBtn";
+            this.übersichtBtn.Size = new System.Drawing.Size(211, 50);
+            this.übersichtBtn.TabIndex = 0;
+            this.übersichtBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.übersichtBtn_MouseClick);
             // 
-            // label11
+            // label1
             // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.Black;
-            this.label11.Location = new System.Drawing.Point(46, 12);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(153, 25);
-            this.label11.TabIndex = 1;
-            this.label11.Text = "EINSTELLUNGEN";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label11.MouseClick += new System.Windows.Forms.MouseEventHandler(this.einstellungenBtn_MouseClick);
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(46, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(107, 25);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "ÜBERSICHT";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.übersichtBtn_MouseClick);
+            // 
+            // übersichtIcon
+            // 
+            this.übersichtIcon.BackgroundImage = global::app.Properties.Resources._01_Übersicht;
+            this.übersichtIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.übersichtIcon.Location = new System.Drawing.Point(10, 10);
+            this.übersichtIcon.Name = "übersichtIcon";
+            this.übersichtIcon.Size = new System.Drawing.Size(30, 30);
+            this.übersichtIcon.TabIndex = 0;
+            this.übersichtIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.übersichtBtn_MouseClick);
+            // 
+            // grabPanel
+            // 
+            this.grabPanel.BackColor = System.Drawing.Color.White;
+            this.grabPanel.Location = new System.Drawing.Point(233, 0);
+            this.grabPanel.Name = "grabPanel";
+            this.grabPanel.Size = new System.Drawing.Size(977, 79);
+            this.grabPanel.TabIndex = 3;
+            this.grabPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.grabPanel_MouseDown);
+            this.grabPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.grabPanel_MouseMove);
+            this.grabPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.grabPanel_MouseUp);
+            // 
+            // contentPanel
+            // 
+            this.contentPanel.Controls.Add(this.chart2);
+            this.contentPanel.Location = new System.Drawing.Point(252, 80);
+            this.contentPanel.Name = "contentPanel";
+            this.contentPanel.Size = new System.Drawing.Size(977, 555);
+            this.contentPanel.TabIndex = 4;
+            // 
+            // chart2
+            // 
+            chartArea2.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart2.Legends.Add(legend2);
+            this.chart2.Location = new System.Drawing.Point(978, 260);
+            this.chart2.Name = "chart2";
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart2.Series.Add(series2);
+            this.chart2.Size = new System.Drawing.Size(300, 300);
+            this.chart2.TabIndex = 1;
+            this.chart2.Text = "chart2";
             // 
             // closeBtn
             // 
@@ -403,54 +474,6 @@
             this.closeBtn.Size = new System.Drawing.Size(20, 20);
             this.closeBtn.TabIndex = 2;
             this.closeBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.closeBtn_MouseClick);
-            // 
-            // panel14
-            // 
-            this.panel14.BackgroundImage = global::app.Properties.Resources._04_Einstellungen;
-            this.panel14.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panel14.Location = new System.Drawing.Point(10, 10);
-            this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(30, 30);
-            this.panel14.TabIndex = 0;
-            this.panel14.MouseClick += new System.Windows.Forms.MouseEventHandler(this.einstellungenBtn_MouseClick);
-            // 
-            // panel12
-            // 
-            this.panel12.BackgroundImage = global::app.Properties.Resources._03_Live_Cam;
-            this.panel12.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panel12.Location = new System.Drawing.Point(10, 10);
-            this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(30, 30);
-            this.panel12.TabIndex = 0;
-            this.panel12.MouseClick += new System.Windows.Forms.MouseEventHandler(this.live_kameraBtn_MouseClick);
-            // 
-            // panel3
-            // 
-            this.panel3.BackgroundImage = global::app.Properties.Resources._02_Tagesabläufe;
-            this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panel3.Location = new System.Drawing.Point(22, 105);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(30, 30);
-            this.panel3.TabIndex = 1;
-            // 
-            // übersichtIcon
-            // 
-            this.übersichtIcon.BackgroundImage = global::app.Properties.Resources._01_Übersicht;
-            this.übersichtIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.übersichtIcon.Location = new System.Drawing.Point(10, 10);
-            this.übersichtIcon.Name = "übersichtIcon";
-            this.übersichtIcon.Size = new System.Drawing.Size(30, 30);
-            this.übersichtIcon.TabIndex = 0;
-            this.übersichtIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.übersichtBtn_MouseClick);
-            // 
-            // icon
-            // 
-            this.icon.BackgroundImage = global::app.Properties.Resources._00_Icon;
-            this.icon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.icon.Location = new System.Drawing.Point(12, 12);
-            this.icon.Name = "icon";
-            this.icon.Size = new System.Drawing.Size(52, 52);
-            this.icon.TabIndex = 0;
             // 
             // Window
             // 
@@ -472,8 +495,10 @@
             this.iconPanel.PerformLayout();
             this.sidePanel.ResumeLayout(false);
             this.sidePanel.PerformLayout();
-            this.übersichtBtn.ResumeLayout(false);
-            this.übersichtBtn.PerformLayout();
+            this.einstellungenBtn.ResumeLayout(false);
+            this.einstellungenBtn.PerformLayout();
+            this.live_kameraBtn.ResumeLayout(false);
+            this.live_kameraBtn.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.montagBtn.ResumeLayout(false);
             this.montagBtn.PerformLayout();
@@ -489,10 +514,10 @@
             this.samstagBtn.PerformLayout();
             this.sonntagBtn.ResumeLayout(false);
             this.sonntagBtn.PerformLayout();
-            this.live_kameraBtn.ResumeLayout(false);
-            this.live_kameraBtn.PerformLayout();
-            this.einstellungenBtn.ResumeLayout(false);
-            this.einstellungenBtn.PerformLayout();
+            this.übersichtBtn.ResumeLayout(false);
+            this.übersichtBtn.PerformLayout();
+            this.contentPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -532,6 +557,7 @@
         private System.Windows.Forms.Panel einstellungenBtn;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Panel panel14;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
     }
 }
 
