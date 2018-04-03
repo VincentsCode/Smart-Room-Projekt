@@ -1,7 +1,17 @@
 SWIPE-MENU
- ÜBERSICHT - Graph (Geräte heute), An/Aus (einzeln), Temperatur usw.
- GEWOHNHEITS-ÜBERSICHT - Bild (Grundriss + Bewegung heute), Wochentage + Immer (anklickbar)
-	WOCHENTAGE - Gewohnheiten (editierbar), Bild (Grundriss + Bewegung an diesem Tag)
- LIVE-KAMERA - Live Kamera
+ ÜBERSICHT 
+   Graph (Geräte heute)								-> UI_CLIENT_DEVICES_LOG_REQUEST
+   Geräte steuern (einzeln)							-> UI_CLIENT_COMMAND_IDENTIFIER
+   Temperatur usw.									-> UI_CLIENT_SENSOR_DATA_REQUEST
+ GEWOHNHEITS-ÜBERSICHT
+   Bild (Grundriss + Bewegung heute)				-> UI_CLIENT_MOVEMENT_LOG_REQUEST
+   Wochentage (anklickbar)
+	Gewohnheiten (editierbar)						-> 
+	Bild (Grundriss + Bewegung an diesem Tag)		-> UI_CLIENT_MOVEMENT_LOG_REQUEST
+ LIVE-KAMERA
+   Live Kamera										-> ? (Mögl: Andere Kamera -> Direkter WebView)
+   
 PUNKTE
- EINSTELLUNGEN - Systemeinstellungen
+ EINSTELLUNGEN
+   Systemeinstellungen								-> UI_CLIENT_SYSTEM_COMMAND_IDENTIFIER
+     Objekt hinzufügen								-> UI_CLIENT_ADD_DEVICE_IDENTIFIER
