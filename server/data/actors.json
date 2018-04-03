@@ -1,11 +1,16 @@
 {
-  "actor0": {
-    "type": "Heater",
-    "ip": "192.168.2.123"
+  "Heater0": {
+    "type": "Regulator",
+    "ip": "127.0.0.1",
+    "port": 1337,
+    "position_count": 5
   }
   ,
-  "actor1": {
-    "type": "Computer",
-    "ip": "192.168.2.231"
+  "Computer0": {
+    "type": "Switch",
+    "ip": "127.0.0.1",
+    "port": 1338,
+    "state_count": 3,
+    "state_names": ["AN", "STANDBY", "AUS"]
   }
 }

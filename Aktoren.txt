@@ -4,4 +4,4 @@ AKTOREN					TYP
  - Licht				2-SWITCH
  - Musik				2-SWITCH
  - Fenster				2-SWITCH
- - Kaffee				1-BUTTON
+ - Kaffee?				PUSH
