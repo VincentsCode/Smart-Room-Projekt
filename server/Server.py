@@ -1,14 +1,30 @@
 import json
 import os
 import socket
-import traceback
 from _thread import start_new_thread
+import traceback
+import datetime
 
 import Actor
 import Constants
 
 c_dir = os.path.realpath('.')
 actors_file_name = c_dir + '\\data\\actors.json'
+
+# Create Log-Folder
+now = datetime.datetime.now()
+folder_name = str(now.day) + "_" + str(now.month) + "_" + str(now.year)
+if not os.path.exists(c_dir + "\\log\\" + folder_name):
+    os.makedirs(c_dir + "\\log\\" + folder_name)
+
+# GET ACTORS FROM JSON
+actors_file = open(actors_file_name, 'r')
+actors_list = json.load(actors_file)
+actors_file.close()
+
+actors = {}
+for i in actors_list:
+    actors[i] = None
 
 max_clients = 10
 port = 2222
@@ -26,8 +42,14 @@ def get_info():
                       str(actors[a].connected)
         info += a_info
         info += "+"
-
+    info = info[0:len(info)-1]
     return info
+
+
+def get_logs():
+    logs = "TODO"
+    # TODO
+    return logs
 
 
 def client_thread(t_conn):
@@ -42,6 +64,7 @@ def client_thread(t_conn):
             # REQUESTS
             # UI_CLIENT_DATA_REQUEST
             if c_msg == Constants.UI_CLIENT_DATA_REQUEST:
+                print("Received UI_CLIENT_DATA_REQUEST")
                 msg = get_info()
                 while len(bytes(msg, "utf8")) < 2048:
                     msg += "#"
@@ -49,9 +72,11 @@ def client_thread(t_conn):
 
             # UI_CLIENT_DEVICES_LOG_REQUEST
             if c_msg == Constants.UI_CLIENT_DEVICES_LOG_REQUEST:
-                # TODO
-                # Send Log from all Devices
-                pass
+                print("Received UI_CLIENT_DEVICES_LOG_REQUEST")
+                msg = get_logs()
+                while len(bytes(msg, "utf8")) < 2048:
+                    msg += "#"
+                t_conn.sendall(bytes(msg, "utf8"))
 
             # UI_CLIENT_MOVEMENT_LOG_REQUEST
             if c_msg == Constants.UI_CLIENT_MOVEMENT_LOG_REQUEST:
@@ -105,20 +130,12 @@ def client_thread(t_conn):
                 pass
 
         except Exception:
-            traceback.print_exc()
             print("Client disconnected")
+            traceback.print_exc()
+            break
 
     t_conn.close()
 
-
-# GET ACTORS FROM JSON
-actors_file = open(actors_file_name, 'r')
-actors_list = json.load(actors_file)
-actors_file.close()
-
-actors = {}
-for i in actors_list:
-    actors[i] = None
 
 for actor_name in actors:
     actor_info = actors_list[actor_name]
@@ -128,10 +145,12 @@ for actor_name in actors:
         actors[actor_name] = Actor.Actor(actor_ip,
                                          actor_port,
                                          actor_info["state_count"],
+                                         actor_name,
                                          actor_info["state_names"])
     else:
         actors[actor_name] = Actor.Actor(actor_ip,
                                          actor_port,
+                                         actor_name,
                                          actor_info["state_count"])
 
 # CONNECT TO ACTORS

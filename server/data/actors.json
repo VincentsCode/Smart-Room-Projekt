@@ -1,4 +1,10 @@
 {
+  "Light0": {
+    "ip": "192.168.2.117",
+    "port": 1337,
+    "state_count": 2,
+    "state_names": ["AN", "AUS"]
+  },
   "Computer0": {
     "ip": "127.0.0.1",
     "port": 1338,

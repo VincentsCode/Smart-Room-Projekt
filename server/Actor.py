@@ -1,5 +1,9 @@
 import socket
+
 import Constants
+import time
+import os
+import datetime
 
 
 # Actor WITH N STATES
@@ -17,7 +21,7 @@ class Actor:
     switch_to(int): switches to a certain state
     get_state(boolean): returns the current state as text or int or -1 if disconnected
     """
-    def __init__(self, m_ip, m_port, state_count, state_names=None):
+    def __init__(self, m_ip, m_port, state_count, name, state_names=None):
         if state_names is None:
             state_names = []
             for i in range(state_count):
@@ -29,6 +33,14 @@ class Actor:
         self.state = 0
         self.socket = None
         self.connected = False
+        self.name = name
+
+        # Create Log-File
+        now = datetime.datetime.now()
+        folder_name = str(now.day) + "_" + str(now.month) + "_" + str(now.year)
+        d = os.path.realpath('.')
+        file = open(d + "\\log\\" + folder_name + "\\" + self.name + ".log", "a")
+        file.close()
 
     def __repr__(self):
         return "<Actor.AdvancedSwitch object: ip={}, port={}, connected={}, state={}, state_count={}, state_names={}>"\
@@ -58,7 +70,14 @@ class Actor:
             self.socket.sendall(bytes(msg, "utf8"))
             answer = self.socket.recv(Constants.ANSWER_BYTES_LENGTH)
             if str(answer, "utf8") == Constants.ANSWER_POSITIVE:
-                self.state = n_state
+                if n_state != self.state:
+                    self.state = n_state
+                    d = os.path.realpath('.')
+                    now = datetime.datetime.now()
+                    folder_name = str(now.day) + "_" + str(now.month) + "_" + str(now.year)
+                    file = open(d + "\\log\\" + folder_name + "\\" + self.name + ".log", "a")
+                    file.write("STATE_CHANGED" + "_" + str(int(time.time())) + "_" + str(n_state) + "\n")
+                    file.close()
                 return True
             else:
                 return False

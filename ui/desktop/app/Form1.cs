@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -11,7 +12,27 @@ using System.Windows.Forms;
 namespace app {
     public partial class Window : Form {
 
-        Color[] graphColors = { // 14 colors
+        // Server-Data
+        const string IP = "192.168.2.109";
+        const int PORT = 2222;
+
+        // REQUEST-CODES
+        const string UI_CLIENT_DATA_REQUEST =         "00000000000000000000000000000097";
+        const string UI_CLIENT_DEVICES_LOG_REQUEST =  "00000000000000000000000000000087";
+        const string UI_CLIENT_MOVEMENT_LOG_REQUEST = "00000000000000000000000000000077";
+        const string UI_CLIENT_SENSOR_DATA_REQUEST =  "00000000000000000000000000000067";
+        const string UI_CLIENT_RNN_HABITS_REQUEST =   "00000000000000000000000000000057";
+
+        // COMMAND-IDENTIFIER
+        const string UI_CLIENT_COMMAND_IDENTIFIER = "CMD_";
+        const string UI_CLIENT_SYSTEM_COMMAND_IDENTIFIER = "SYS_";
+        const string UI_CLIENT_ADD_DEVICE_IDENTIFIER = "ADD_";
+
+        string lastAnswer = "";
+        int viewSelected = 0;
+
+        // 14 Colors
+        Color[] graphColors = {
             Color.FromArgb(52, 189, 157),
             Color.FromArgb(68, 204, 118),
             Color.FromArgb(57, 154, 216),
@@ -31,6 +52,8 @@ namespace app {
 
         public Window() {
             InitializeComponent();
+            loadÜbersicht();
+            markPanel(übersichtBtn);
         }
 
         // BEGIN: Moveable Window
@@ -158,6 +181,66 @@ namespace app {
 
         private void loadÜbersicht() {
             clearPanel();
+            viewSelected = 0;
+
+            Panel panel0 = new Panel();
+            panel0.Name = "panel0";
+            panel0.Margin = new Padding(0, 0, 0, 0);
+            panel0.Size = new Size(551, 350);
+            panel0.Location = new Point(0, 0);
+            panel0.BackColor = Color.FromArgb(235, 236, 237);
+            panel0.Show();
+            contentPanel.Controls.Add(panel0);
+
+            Panel panel1 = new Panel();
+            panel1.Name = "panel1";
+            panel1.Margin = new Padding(0, 0, 0, 0);
+            panel1.Size = new Size(410, 550);
+            panel1.Location = new Point(565, 0);
+            panel1.BackColor = Color.FromArgb(235, 236, 237);
+            panel1.Show();
+            contentPanel.Controls.Add(panel1);
+
+            Panel panel2 = new Panel();
+            panel2.Name = "panel2";
+            panel2.Margin = new Padding(0, 0, 0, 0);
+            panel2.Size = new Size(551, 185);
+            panel2.Location = new Point(0, 365);
+            panel2.BackColor = Color.FromArgb(235, 236, 237);
+            panel2.Show();
+            contentPanel.Controls.Add(panel2);
+
+            string d_string = send(UI_CLIENT_DATA_REQUEST);
+            string[] d_i_string = d_string.Split('+');
+
+            TableLayoutPanel tablePanel = new TableLayoutPanel();
+            tablePanel.RowCount = d_i_string.Length;
+            tablePanel.Height = d_i_string.Length *50;
+            tablePanel.Width = panel1.Width;
+            tablePanel.ColumnCount = 1;
+            tablePanel.Show();
+            panel1.Controls.Add(tablePanel);
+
+            for (int i = 0; i < d_i_string.Length; i++) {
+                string[] s_properties = d_i_string[i].Split('_');
+
+                Panel p = new Panel();
+                p.Name = s_properties[0];
+                p.Height = 45;
+                p.Width = panel1.Width -6;
+                p.BackColor = Color.Transparent;
+                p.Show();
+                tablePanel.Controls.Add(p, 0, i);
+
+                Panel p_c = new Panel();
+
+                Label nL = new Label();
+                nL.Text = s_properties[0] + "          " + s_properties[3];
+                nL.Show();
+                p.Controls.Add(nL);
+            }
+
+
             // TODO ACQUIRE REAL LOG
             Dictionary<string, int> devices = new Dictionary<string, int>();
             //          "NAME", time in min
@@ -170,8 +253,6 @@ namespace app {
             devices.Add("Computer2", 20);
             devices.Add("Heater2", 330);
             devices.Add("Light2", 590);
-            var l = devices.OrderBy(key => key.Key);
-            devices = l.ToDictionary((keyItem) => keyItem.Key, (valueItem) => valueItem.Value);
 
             TableLayoutPanel frame = new TableLayoutPanel();
             frame.Name = "chart";
@@ -193,7 +274,7 @@ namespace app {
             }
             frame.BackColor = Color.FromArgb(235, 236, 237);
             frame.Show();
-            contentPanel.Controls.Add(frame);
+            panel0.Controls.Add(frame);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e) {
@@ -212,39 +293,125 @@ namespace app {
 
         private void loadMontag() {
             clearPanel();
+            viewSelected = 1;
         }
         private void loadDienstag() {
             clearPanel();
+            viewSelected = 2;
         }
         private void loadMittwoch() {
             clearPanel();
+            viewSelected = 3;
         }
         private void loadDonnerstag() {
             clearPanel();
+            viewSelected = 4;
         }
         private void loadFreitag() {
             clearPanel();
+            viewSelected = 5;
         }
         private void loadSamstag() {
             clearPanel();
+            viewSelected = 6;
         }
         private void loadSonntag() {
             clearPanel();
+            viewSelected = 7;
         }
 
         private void loadLive_Kamera() {
             clearPanel();
+            viewSelected = 8;
         }
 
         private void loadEinstellungen() {
             clearPanel();
+            viewSelected = 9;
         }
         // END: Preset-Loader
 
         // BEGIN: COMMUNICATION
         // TODO
-        private string getDeviceLogToday() {
-            return "";
+        private string send(string txt) {
+            string msg = txt;
+            string message = "";
+            try {
+                TcpClient client = new TcpClient(IP, PORT);
+                NetworkStream nwStream = client.GetStream();
+
+                // SEND
+                byte[] bytesToSend = UTF8Encoding.UTF8.GetBytes(msg);
+                if (bytesToSend.Length < 32)
+                {
+                    msg += "#";
+                    bytesToSend = UTF8Encoding.UTF8.GetBytes(msg);
+                }
+                nwStream.Write(bytesToSend, 0, bytesToSend.Length);
+
+                // RECV
+                byte[] answer = new byte[2048];
+                nwStream.Read(answer, 0, 2048);
+                message = Encoding.UTF8.GetString(answer);
+                message = message.Replace("#", "");
+
+                // LOG
+                // System.IO.File.WriteAllText(@"C:\Users\vince\Desktop\testMyOutput.txt", message);
+                // System.IO.File.WriteAllLines(@"C:\Users\vince\Desktop\testMyOutput2.txt", device_infos);
+
+                // CLOSE
+                nwStream.Close();
+                client.Close();
+                nwStream.Dispose();
+                client.Dispose();
+            } catch (Exception e) {
+                MessageBox.Show("Es konnte keine Verbindung zum Server hergestellt werden.");
+            }
+            return message;
+        }
+
+        private void loadViewById(int id) {
+            switch (id) {
+                case 0:
+                    loadÜbersicht();
+                    break;
+                case 1:
+                    loadMontag();
+                    break;
+                case 2:
+                    loadDienstag();
+                    break;
+                case 3:
+                    loadMittwoch();
+                    break;
+                case 4:
+                    loadDonnerstag();
+                    break;
+                case 5:
+                    loadFreitag();
+                    break;
+                case 6:
+                    loadSamstag();
+                    break;
+                case 7:
+                    loadSonntag();
+                    break;
+                case 8:
+                    loadLive_Kamera();
+                    break;
+                case 9:
+                    loadEinstellungen();
+                    break;
+
+            }
+        }
+
+        private void updateTimer_Tick(object sender, EventArgs e) {
+            string s = send(UI_CLIENT_DATA_REQUEST);
+            if (s != lastAnswer) {
+                loadViewById(viewSelected);
+            }
+            lastAnswer = s;
         }
         // END: COMMUNICATION
     }

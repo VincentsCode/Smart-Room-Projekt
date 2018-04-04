@@ -3,7 +3,7 @@ import Constants
 
 # Create a TCP/IP socket
 socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-socket.bind(('localhost', 1338))
+socket.bind(('', 1338))
 
 socket.listen(1)
 
