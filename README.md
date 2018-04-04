@@ -8,7 +8,6 @@
   
   Server: \server\Server.py
   
-  Sensor-Module: \hardware\sensor-TODO
   Aktor-Module: \hardware\actor-TODO
   
   
