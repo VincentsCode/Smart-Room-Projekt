@@ -11,7 +11,7 @@
   
   
 # TODO
-  ## 1. Standard-SmartHome Funktionalität + UIs
+  ## 1. Standard-SmartHome Funktionalität + Basic-UI
      - Server ✓
      - UI ✓
      - Aktoren ✓
