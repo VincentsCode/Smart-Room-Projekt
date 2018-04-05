@@ -8,14 +8,14 @@
   
   Server: \server\Server.py
   
-  Aktor-Module: \hardware\actor-TODO
+  Aktor-Module: \hardware\actor-TODO | \server\testDevices\test_actorX.py
   
   
 # TODO
   ## 1. Standard-SmartHome Funktionalität + UIs
-     - Server ✓ 
+     - Server ✓
      - UIs
-     - Aktoren
+     - Aktoren ✓
   ## 2. User-Tracking
      - Personenerkennung (ohne blinde Winkel)
      - 3D -> 2D
