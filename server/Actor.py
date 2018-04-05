@@ -76,7 +76,7 @@ class Actor:
                     now = datetime.datetime.now()
                     folder_name = str(now.day) + "_" + str(now.month) + "_" + str(now.year)
                     file = open(d + "\\log\\" + folder_name + "\\" + self.name + ".log", "a")
-                    file.write("STATE_CHANGED" + "_" + str(int(time.time())) + "_" + str(n_state) + "\n")
+                    file.write(str(int(time.time())) + "_" + str(n_state) + "\n")
                     file.close()
                 return True
             else:

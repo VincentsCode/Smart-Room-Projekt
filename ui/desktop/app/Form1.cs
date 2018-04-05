@@ -17,11 +17,11 @@ namespace app {
         const int PORT = 2222;
 
         // REQUEST-CODES
-        const string UI_CLIENT_DATA_REQUEST =         "00000000000000000000000000000097";
-        const string UI_CLIENT_DEVICES_LOG_REQUEST =  "00000000000000000000000000000087";
-        const string UI_CLIENT_MOVEMENT_LOG_REQUEST = "00000000000000000000000000000077";
-        const string UI_CLIENT_SENSOR_DATA_REQUEST =  "00000000000000000000000000000067";
-        const string UI_CLIENT_RNN_HABITS_REQUEST =   "00000000000000000000000000000057";
+        const string UI_CLIENT_DATA_REQUEST =           "0000000000000000000000000000000000000000000000000000000000000097";
+        const string UI_CLIENT_DEVICES_LOG_REQUEST =    "0000000000000000000000000000000000000000000000000000000000000087";
+        const string UI_CLIENT_MOVEMENT_LOG_REQUEST =   "0000000000000000000000000000000000000000000000000000000000000077";
+        const string UI_CLIENT_SENSOR_DATA_REQUEST =    "0000000000000000000000000000000000000000000000000000000000000067";
+        const string UI_CLIENT_RNN_HABITS_REQUEST =     "0000000000000000000000000000000000000000000000000000000000000057";
 
         // COMMAND-IDENTIFIER
         const string UI_CLIENT_COMMAND_IDENTIFIER = "CMD_";
@@ -218,6 +218,7 @@ namespace app {
             tablePanel.Height = d_i_string.Length *50;
             tablePanel.Width = panel1.Width;
             tablePanel.ColumnCount = 1;
+            tablePanel.Location = new Point(13, 7);
             tablePanel.Show();
             panel1.Controls.Add(tablePanel);
 
@@ -228,16 +229,32 @@ namespace app {
                 p.Name = s_properties[0];
                 p.Height = 45;
                 p.Width = panel1.Width -6;
-                p.BackColor = Color.Transparent;
+                p.BackColor = Color.Transparent; //Color.FromArgb(200, 201, 202); ;
                 p.Show();
                 tablePanel.Controls.Add(p, 0, i);
 
                 Panel p_c = new Panel();
+                p_c.BackColor = graphColors[i];
+                p_c.Width = 8;
+                p_c.Height = 31;
+                p_c.Location = new Point(0, 7);
+                p_c.Show();
+                p.Controls.Add(p_c);
 
                 Label nL = new Label();
-                nL.Text = s_properties[0] + "          " + s_properties[3];
+                nL.Text = string.Join("", s_properties[0]);
+                FontFamily fontFamily = new FontFamily("Segoe UI");
+                Font font = new Font(fontFamily, 15, FontStyle.Regular, GraphicsUnit.Point);
+                nL.Font = font;
+
+                Size textSize = TextRenderer.MeasureText(nL.Text, nL.Font);
+                nL.Size = textSize;
+                int temp = (int) (p.Height - nL.Height) / 2 -1;
+                nL.Location = new Point(12, temp);
                 nL.Show();
                 p.Controls.Add(nL);
+
+                // ADD DROP-MENU WITH EVENT LISTENER
             }
 
 
@@ -280,7 +297,8 @@ namespace app {
         private void panel1_Paint(object sender, PaintEventArgs e) {
             var p = sender as Panel;
             if (p.Height > 50) {
-                var g = e.Graphics; FontFamily fontFamily = new FontFamily("Segoe UI");
+                var g = e.Graphics;
+                FontFamily fontFamily = new FontFamily("Segoe UI");
                 Font font = new Font(fontFamily, 10, FontStyle.Regular, GraphicsUnit.Point);
                 g.TranslateTransform(p.Width / 2, p.Height / 2);
                 g.RotateTransform(-90);
@@ -332,7 +350,6 @@ namespace app {
         // END: Preset-Loader
 
         // BEGIN: COMMUNICATION
-        // TODO
         private string send(string txt) {
             string msg = txt;
             string message = "";
@@ -342,8 +359,7 @@ namespace app {
 
                 // SEND
                 byte[] bytesToSend = UTF8Encoding.UTF8.GetBytes(msg);
-                if (bytesToSend.Length < 32)
-                {
+                if (bytesToSend.Length < 64) {
                     msg += "#";
                     bytesToSend = UTF8Encoding.UTF8.GetBytes(msg);
                 }
@@ -355,17 +371,16 @@ namespace app {
                 message = Encoding.UTF8.GetString(answer);
                 message = message.Replace("#", "");
 
-                // LOG
-                // System.IO.File.WriteAllText(@"C:\Users\vince\Desktop\testMyOutput.txt", message);
-                // System.IO.File.WriteAllLines(@"C:\Users\vince\Desktop\testMyOutput2.txt", device_infos);
-
                 // CLOSE
                 nwStream.Close();
                 client.Close();
                 nwStream.Dispose();
                 client.Dispose();
+
+                updateTimer.Interval = 1000;
             } catch (Exception e) {
                 MessageBox.Show("Es konnte keine Verbindung zum Server hergestellt werden.");
+                updateTimer.Interval = 10000;
             }
             return message;
         }
