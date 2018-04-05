@@ -229,7 +229,7 @@ namespace app {
                 p.Name = s_properties[0];
                 p.Height = 45;
                 p.Width = panel1.Width -6;
-                p.BackColor = Color.Transparent; //Color.FromArgb(200, 201, 202); ;
+                p.BackColor = Color.Transparent; // Color.FromArgb(200, 201, 202); ;
                 p.Show();
                 tablePanel.Controls.Add(p, 0, i);
 
@@ -254,7 +254,34 @@ namespace app {
                 nL.Show();
                 p.Controls.Add(nL);
 
-                // ADD DROP-MENU WITH EVENT LISTENER
+                ComboBox cBox = new ComboBox();
+                cBox.DropDownStyle = ComboBoxStyle.DropDownList;
+                cBox.Show();
+                temp = (int)(p.Height - cBox.Height) / 2;
+                cBox.Location = new Point(250, temp);
+
+                string[] s_s_p = s_properties[5].Split(',');
+                foreach (string str in s_s_p) {
+                    string n_str = str.Replace("'", "");
+                    n_str = n_str.Replace("[", "");
+                    n_str = n_str.Replace("]", "");
+                    n_str = n_str.Trim();
+                    cBox.Items.Add(n_str);
+                }
+
+                cBox.SelectedIndex = int.Parse(s_properties[3]);
+                cBox.Name = string.Join("", s_properties[0]);
+                cBox.SelectedIndexChanged += CBox_SelectedIndexChanged;
+
+                if (!bool.Parse(s_properties[6])) {
+                    nL.Text = nL.Text + " (Offline)";
+                    textSize = TextRenderer.MeasureText(nL.Text, nL.Font);
+                    nL.Size = textSize;
+                    cBox.Enabled = false;
+                    cBox.SelectedIndex = -1;
+                }
+
+                p.Controls.Add(cBox);
             }
 
 
@@ -292,6 +319,11 @@ namespace app {
             frame.BackColor = Color.FromArgb(235, 236, 237);
             frame.Show();
             panel0.Controls.Add(frame);
+        }
+
+        private void CBox_SelectedIndexChanged(object sender, EventArgs e) {
+            string n = ((ComboBox)sender).Name;
+            send(UI_CLIENT_COMMAND_IDENTIFIER + n + "_" + ((ComboBox)sender).SelectedIndex);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e) {

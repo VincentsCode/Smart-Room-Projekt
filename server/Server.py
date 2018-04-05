@@ -205,10 +205,11 @@ for actor_name in actors:
 
 # CONNECT TO ACTORS
 for actor in actors:
-	try:
+    try:
         actors[actor].connect()
-	except Exception:
-		print(actor, "offline")
+        print(actor, "connected")
+    except Exception:
+        print(actor, "offline")
 
 # START UI-SERVER
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

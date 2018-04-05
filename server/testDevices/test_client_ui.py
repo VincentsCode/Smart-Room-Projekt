@@ -26,7 +26,7 @@ s_a = str(answer, "utf8")
 print(s_a)
 
 # EDIT COMPUTER
-msg = Constants.UI_CLIENT_COMMAND_IDENTIFIER + "Computer0" + "_" + "1"
+msg = Constants.UI_CLIENT_COMMAND_IDENTIFIER + "Computer0" + "_" + "2"
 while len(bytes(msg, "utf8")) < Constants.REQUEST_LENGTH:
     msg += "#"
 socket.sendall(bytes(msg, "utf8"))

@@ -50,6 +50,7 @@ class Actor:
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.connect((self.ip, self.port))
         self.connected = True
+        self.switch_to(0)
 
     def switch(self):
         if self.connected:
