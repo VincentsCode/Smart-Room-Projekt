@@ -13,7 +13,7 @@
 # TODO
   ## 1. Standard-SmartHome Funktionalität + UIs
      - Server ✓
-     - UIs
+     - UI ✓
      - Aktoren ✓
   ## 2. User-Tracking
      - Personenerkennung (ohne blinde Winkel)
