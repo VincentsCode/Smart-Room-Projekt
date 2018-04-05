@@ -13,20 +13,20 @@
   
 # TODO
   ## 1. Standard-SmartHome Funktionalität + UIs
-     - Server
-	 - UIs
-	 - Aktoren
+     - Server ✓ 
+     - UIs
+     - Aktoren
   ## 2. User-Tracking
      - Personenerkennung (ohne blinde Winkel)
      - 3D -> 2D
-	 - Tracing
+     - Tracing
   ## 3. Aktivitäts/Interaktions-Erkennung & Log
      - Interaktions-Punkte erkennen & manuell hinzufügen
-	 - 3D-Sphere um Punkte + Erkennung von Person in Sphere
-	 - Log
+     - 3D-Sphere um Punkte + Erkennung von Person in Sphere
+     - Log
   ## 4. Gewohnheiten/Tagesabläufe lernen (RNN)
      - Daten aus Log zu Koordsystem (Zeit, (X, Y))
-	 - Daten -> Gewohnheiten/Tagesabläufen
+     - Daten -> Gewohnheiten/Tagesabläufen
   ## 5. Kombinieren
      - Tagesabläufe -> Aktionen
      - Gewohnheiten -> Aktionen
