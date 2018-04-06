@@ -15,6 +15,24 @@
         android:layout_height="match_parent"
         android:id="@+id/screen_area"
         >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/gutenTag"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="17dp"
+            android:layout_height="match_parent"
+            android:text="Guten Tag! Verwalten Sie hier alle Ihre verbundenen Geräte. In der Tagesübersicht haben sie außerdem die Möglichkeit, alle Trainingsdaten abzurufen."
+            />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_marginTop="120dp"
+            android:layout_marginBottom="60dp"
+            android:layout_height="match_parent"
+            android:src="@mipmap/app_icon"
+            android:id="@+id/image"
+            />
     </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -7,12 +7,4 @@
     tools:context="com.example.fabian.androidsmartroom.SettingsActivity">
 
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:onClick="main_menu"
-        android:text="Hauptmenü" />
 </RelativeLayout>

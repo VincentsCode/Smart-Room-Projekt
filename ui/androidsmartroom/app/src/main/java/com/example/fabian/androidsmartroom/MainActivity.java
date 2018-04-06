@@ -13,6 +13,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.app.Fragment;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -23,6 +26,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -69,15 +73,16 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-         Fragment fragment = null;
-
+        Fragment fragment = null;
+        TextView textView = findViewById(R.id.gutenTag);
+        ImageView imageView = findViewById(R.id.image);
 
         int id = item.getItemId();
+
+        fragment = new Menu_Montag();
 
         if (id == R.id.live_camera) {
             fragment = new Menu_Livecam();
@@ -95,7 +100,14 @@ public class MainActivity extends AppCompatActivity
             fragment = new Menu_Samstag();
         }else if (id == R.id.sunday) {
             fragment = new Menu_Sonntag();
+        }else if (id == R.id.devices) {
+            fragment = new Menu_Devices();
+        } else {
+            fragment = new Menu_Devices();
         }
+
+        textView.setVisibility(View.INVISIBLE);
+        imageView.setVisibility(View.INVISIBLE);
 
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
