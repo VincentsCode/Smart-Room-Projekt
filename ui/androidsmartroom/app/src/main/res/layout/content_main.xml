@@ -22,7 +22,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginLeft="17dp"
             android:layout_height="match_parent"
-            android:text="Guten Tag! Verwalten Sie hier alle Ihre verbundenen Geräte. In der Tagesübersicht haben sie außerdem die Möglichkeit, alle Trainingsdaten abzurufen."
+            android:text="Guten Tag! Verwalten Sie hier alle Ihre verbundenen Geräte. In der Tagesübersicht haben Sie darüber hinaus die Möglichkeit alle Trainingsdaten abzurufen."
             />
 
         <ImageView
