@@ -1,8 +1,9 @@
 import json
 import os
 import socket
-import traceback
 from _thread import start_new_thread
+import traceback
+import datetime
 
 import Actor
 import Constants
@@ -10,106 +11,11 @@ import Constants
 c_dir = os.path.realpath('.')
 actors_file_name = c_dir + '\\data\\actors.json'
 
-max_clients = 10
-port = 2222
-
-
-def get_info():
-    info = ""
-    for a in actors:
-        a_info = a + "_" + \
-                      actors[a].ip + "_" + \
-                      str(actors[a].port) + "_" + \
-                      str(actors[a].state) + "_" + \
-                      str(actors[a].state_count) + "_" + \
-                      str(actors[a].state_names) + "_" + \
-                      str(actors[a].connected)
-        info += a_info
-        info += "+"
-
-    return info
-
-
-def client_thread(t_conn):
-    while True:
-        # noinspection PyBroadException
-        try:
-            data = t_conn.recv(32)
-            if not data:
-                break
-            c_msg = str(data, "utf8")
-
-            # REQUESTS
-            # UI_CLIENT_DATA_REQUEST
-            if c_msg == Constants.UI_CLIENT_DATA_REQUEST:
-                msg = get_info()
-                while len(bytes(msg, "utf8")) < 2048:
-                    msg += "#"
-                t_conn.sendall(bytes(msg, "utf8"))
-
-            # UI_CLIENT_DEVICES_LOG_REQUEST
-            if c_msg == Constants.UI_CLIENT_DEVICES_LOG_REQUEST:
-                # TODO
-                # Send Log from all Devices
-                pass
-
-            # UI_CLIENT_MOVEMENT_LOG_REQUEST
-            if c_msg == Constants.UI_CLIENT_MOVEMENT_LOG_REQUEST:
-                # TODO
-                # Send Log from Movement-Recognition
-                pass
-
-            # UI_CLIENT_SENSOR_DATA_REQUEST
-            if c_msg == Constants.UI_CLIENT_SENSOR_DATA_REQUEST:
-                # TODO
-                # Send Sensor-Data
-                pass
-
-            # UI_CLIENT_RNN_HABITS_REQUEST
-            if c_msg == Constants.UI_CLIENT_RNN_HABITS_REQUEST:
-                # TODO
-                # Send RNN-Results (Habits)
-                pass
-
-            # COMMANDS
-            # UI_CLIENT_COMMAND_IDENTIFIER
-            if Constants.UI_CLIENT_COMMAND_IDENTIFIER in c_msg:
-                c_msg = c_msg.replace("#", "")
-                print(c_msg)
-                c_parts = c_msg.split("_")
-                print(c_parts)
-                c_cmd_name = c_parts[1]
-                c_cmd_n_state = c_parts[2]
-                print("State 0", actors[c_cmd_name])
-                actors[c_cmd_name].switch_to(int(c_cmd_n_state))
-                print("State 1", actors[c_cmd_name])
-                msg = get_info()
-                while len(bytes(msg, "utf8")) < 2048:
-                    msg += "#"
-                t_conn.sendall(bytes(msg, "utf8"))
-
-            # UI_CLIENT_SYSTEM_COMMAND_IDENTIFIER
-            if Constants.UI_CLIENT_SYSTEM_COMMAND_IDENTIFIER in c_msg:
-                # TODO
-                # Enable or disable system
-                # change vars
-                # add to info
-                pass
-
-            # UI_CLIENT_ADD_DEVICE_IDENTIFIER
-            if Constants.UI_CLIENT_ADD_DEVICE_IDENTIFIER in c_msg:
-                # TODO
-                # Add Object to actors.json
-                # Reload Objects
-                # return new list
-                pass
-
-        except Exception:
-            traceback.print_exc()
-            print("Client disconnected")
-
-    t_conn.close()
-
+# Create Log-Folder
+now = datetime.datetime.now()
+folder_name = str(now.day) + "_" + str(now.month) + "_" + str(now.year)
+if not os.path.exists(c_dir + "\\log\\" + folder_name):
+    os.makedirs(c_dir + "\\log\\" + folder_name)
 
 # GET ACTORS FROM JSON
 actors_file = open(actors_file_name, 'r')
@@ -120,6 +26,167 @@ actors = {}
 for i in actors_list:
     actors[i] = None
 
+max_clients = 10
+port = 2222
+
+
+def get_info():
+    info = ""
+    for a in actors:
+        a_info = a + "_" + \
+                 actors[a].ip + "_" + \
+                 str(actors[a].port) + "_" + \
+                 str(actors[a].state) + "_" + \
+                 str(actors[a].state_count) + "_" + \
+                 str(actors[a].state_names) + "_" + \
+                 str(actors[a].connected)
+        info += a_info
+        info += "+"
+    info = info[0:len(info) - 1]
+    return info
+
+
+def get_logs():
+    logs = ""
+    for a in actors:
+        a_log = a
+        file = open(c_dir + "\\log\\" + folder_name + "\\" + a + ".log")
+        line = file.readline()
+        while line:
+            a_log += "_" + line.strip()
+            line = file.readline()
+        file.close()
+        logs += a_log
+        logs += "+"
+    logs = logs[0:len(logs) - 1]
+    return logs
+
+
+def client_thread(t_conn):
+    while True:
+        # noinspection PyBroadException
+        try:
+            data = t_conn.recv(Constants.REQUEST_LENGTH)
+            if not data:
+                break
+            c_msg = str(data, "utf8")
+
+            # REQUESTS
+            # UI_CLIENT_DATA_REQUEST
+            if c_msg == Constants.UI_CLIENT_DATA_REQUEST:
+                print("Received UI_CLIENT_DATA_REQUEST")
+                msg = get_info()
+                while len(bytes(msg, "utf8")) < Constants.SERVER_ANSWER_LENGTH:
+                    msg += "#"
+                t_conn.sendall(bytes(msg, "utf8"))
+
+            # UI_CLIENT_DEVICES_LOG_REQUEST
+            if c_msg == Constants.UI_CLIENT_DEVICES_LOG_REQUEST:
+                print("Received UI_CLIENT_DEVICES_LOG_REQUEST")
+                msg = get_logs()
+                while len(bytes(msg, "utf8")) < Constants.SERVER_ANSWER_LENGTH:
+                    msg += "#"
+                t_conn.sendall(bytes(msg, "utf8"))
+
+            # UI_CLIENT_MOVEMENT_LOG_REQUEST
+            if c_msg == Constants.UI_CLIENT_MOVEMENT_LOG_REQUEST:
+                # TODO
+                # Send Log from file (generated by RNN)
+                pass
+
+            # UI_CLIENT_SENSOR_DATA_REQUEST
+            if c_msg == Constants.UI_CLIENT_SENSOR_DATA_REQUEST:
+                # TODO
+                # Send Sensor-Data requested by external rpi-server
+                pass
+
+            # UI_CLIENT_RNN_HABITS_REQUEST
+            if c_msg == Constants.UI_CLIENT_RNN_HABITS_REQUEST:
+                # TODO
+                # Send RNN-Results (Habits) from file
+                pass
+
+            # COMMANDS
+            # UI_CLIENT_COMMAND_IDENTIFIER
+            if Constants.UI_CLIENT_COMMAND_IDENTIFIER in c_msg:
+                c_msg = c_msg.replace("#", "")
+                print("Received UI_CLIENT_COMMAND:", c_msg)
+                c_parts = c_msg.split("_")
+                c_cmd_name = c_parts[1]
+                c_cmd_n_state = c_parts[2]
+                actors[c_cmd_name].switch_to(int(c_cmd_n_state))
+                msg = get_info()
+                while len(bytes(msg, "utf8")) < Constants.SERVER_ANSWER_LENGTH:
+                    msg += "#"
+                t_conn.sendall(bytes(msg, "utf8"))
+
+            # UI_CLIENT_SYSTEM_COMMAND_IDENTIFIER
+            if Constants.UI_CLIENT_SYSTEM_COMMAND_IDENTIFIER in c_msg:
+                # TODO
+                # send command to RNN
+                pass
+
+            # UI_CLIENT_ADD_DEVICE_IDENTIFIER
+            if Constants.UI_CLIENT_ADD_DEVICE_IDENTIFIER in c_msg:
+                c_msg = c_msg.replace("#", "")
+                c_parts = c_msg.split("_")
+                n_name = c_parts[1]
+                n_ip = c_parts[2]
+                n_port = int(c_parts[3])
+                n_states = int(c_parts[4])
+                if n_name not in actors:
+                    if len(c_parts) == 5 + n_states:
+                        n_state_names = c_parts[5:len(c_parts)]
+                        actors[n_name] = Actor.Actor(n_ip,
+                                                     n_port,
+                                                     n_states,
+                                                     n_name,
+                                                     n_state_names)
+                    else:
+                        actors[n_name] = Actor.Actor(n_ip,
+                                                     n_port,
+                                                     n_states,
+                                                     n_name)
+                    actors[n_name].connect()
+
+                    file = open(actors_file_name, 'r')
+                    all_text = ""
+                    line = file.readline()
+                    while line:
+                        all_text += line
+                        line = file.readline()
+                    file.close()
+                    all_text = all_text[0:len(all_text) - 2]
+                    all_text += ",\n"
+                    all_text += "  \"" + n_name + "\": {\n"
+                    all_text += "    \"ip\": \"" + n_ip + "\",\n"
+                    all_text += "    \"port\": " + str(n_port) + ",\n"
+                    all_text += "    \"state_count\": " + str(n_states) + ",\n"
+                    if n_state_names:
+                        all_text += "    \"state_names\": ["
+                        for name in n_state_names:
+                            all_text += "\"" + name + "\", "
+                    all_text = all_text[0:len(all_text) - 2]
+                    if n_state_names:
+                        all_text += "]\n"
+                    all_text += "  }\n"
+                    all_text += "}"
+                    file = open(actors_file_name, "w")
+                    file.write(all_text)
+                    file.close()
+                msg = get_info()
+                while len(bytes(msg, "utf8")) < Constants.SERVER_ANSWER_LENGTH:
+                    msg += "#"
+                t_conn.sendall(bytes(msg, "utf8"))
+
+        except Exception:
+            print("Client disconnected")
+            traceback.print_exc()
+            break
+
+    t_conn.close()
+
+
 for actor_name in actors:
     actor_info = actors_list[actor_name]
     actor_ip = actor_info["ip"]
@@ -128,15 +195,21 @@ for actor_name in actors:
         actors[actor_name] = Actor.Actor(actor_ip,
                                          actor_port,
                                          actor_info["state_count"],
+                                         actor_name,
                                          actor_info["state_names"])
     else:
         actors[actor_name] = Actor.Actor(actor_ip,
                                          actor_port,
+                                         actor_name,
                                          actor_info["state_count"])
 
 # CONNECT TO ACTORS
 for actor in actors:
-    actors[actor].connect()
+    try:
+        actors[actor].connect()
+        print(actor, "connected")
+    except Exception:
+        print(actor, "offline")
 
 # START UI-SERVER
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

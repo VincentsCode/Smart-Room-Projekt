@@ -1,1 +1,1 @@
-Actor: type, ip, port, position_count
+Actor: ip, port, position_count

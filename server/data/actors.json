@@ -1,7 +1,19 @@
 {
+  "Light0": {
+    "ip": "127.0.0.1",
+    "port": 1336,
+    "state_count": 2,
+    "state_names": ["AN", "AUS"]
+  },
   "Computer0": {
     "ip": "127.0.0.1",
     "port": 1338,
+    "state_count": 3,
+    "state_names": ["AN", "STANDBY", "AUS"]
+  },
+  "Computer1": {
+    "ip": "127.0.0.1",
+    "port": 1339,
     "state_count": 3,
     "state_names": ["AN", "STANDBY", "AUS"]
   }
