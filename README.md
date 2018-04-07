@@ -17,7 +17,7 @@
      - Aktoren ✓
   ## 2. User-Tracking
      - Personenerkennung (ohne blinde Winkel)
-     - 3D -> 2D
+     - 3D -> 2D + Ausrichtung & Multi-Kamera-Kalibrierung
      - Tracing
   ## 3. Aktivitäts/Interaktions-Erkennung & Log
      - Interaktions-Punkte erkennen & manuell hinzufügen
