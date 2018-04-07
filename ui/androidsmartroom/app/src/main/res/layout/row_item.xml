@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:id="@+id/rowListItem">
 
     <TextView
         android:id="@+id/name"
@@ -14,11 +15,13 @@
         android:text="Licht"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@android:color/black"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        />
 
 
     <Button
         android:id="@+id/item_info"
+        android:text="AN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.DataInputStream;
@@ -15,6 +16,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 
 public class Menu_Devices extends Fragment{
 
@@ -55,7 +57,23 @@ public class Menu_Devices extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.devices, container, false);
+
+        View view = inflater.inflate(R.layout.devices, container, false);
+        ArrayList<DataModel> dataModels;
+        ListView listView = view.findViewById(R.id.list);
+
+        dataModels = new ArrayList<>();
+
+        dataModels.add(new DataModel("Apple Pie", "Android 1.0", "1","September 23, 2008"));
+        dataModels.add(new DataModel("Banana Bread", "Android 1.1", "2","February 9, 2009"));
+        dataModels.add(new DataModel("Cupcake", "Android 1.5", "3","April 27, 2009"));
+
+
+        CustomAdapter adapter = new CustomAdapter(dataModels, getContext());
+
+        listView.setAdapter(adapter);
+
+        return view;
     }
 
     @Override
@@ -64,4 +82,8 @@ public class Menu_Devices extends Fragment{
 
         getActivity().setTitle("Geräte");
     }
+    public void addListItem(int device) {
+
+    }
+
 }

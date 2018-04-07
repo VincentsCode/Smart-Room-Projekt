@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <item android:title="Tagesübersicht">
+    <item android:title="Tagesübersicht"
+        android:icon="@color/colorPrimaryDark">
         <menu>
             <item
                 android:id="@+id/monday"
