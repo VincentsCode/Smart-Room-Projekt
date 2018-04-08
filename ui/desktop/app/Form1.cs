@@ -50,6 +50,33 @@ namespace app {
         };
         Random rnd = new Random();
 
+        public static class CreateDevicePrompt {
+            public static void ShowDialog(Window w) {
+                Form prompt = new Form();
+                prompt.Width = 500;
+                prompt.Height = 700;
+                prompt.FormBorderStyle = FormBorderStyle.FixedSingle;
+                prompt.Icon = Window.ActiveForm.Icon;
+                prompt.Text = "Gerät hinzufügen";
+
+                // TODO Add Items
+
+
+                Button confirmBtn = new Button() {
+                    Text = "Ok", Left = 350, Width = 100, Top = 70
+                };
+                confirmBtn.Click += (sender, e) => {
+                    String msg = ""; // TODO Get values from items
+                    w.send(msg);
+                    prompt.Close();
+                };
+                prompt.Controls.Add(confirmBtn);
+
+
+                prompt.ShowDialog();
+            }
+        }
+
         public Window() {
             InitializeComponent();
             loadÜbersicht();
@@ -214,8 +241,8 @@ namespace app {
             string[] d_i_string = d_string.Split('+');
 
             TableLayoutPanel tablePanel = new TableLayoutPanel();
-            tablePanel.RowCount = d_i_string.Length;
-            tablePanel.Height = d_i_string.Length *50;
+            tablePanel.RowCount = d_i_string.Length + 1;
+            tablePanel.Height = (d_i_string.Length + 1) * 50;
             tablePanel.Width = panel1.Width;
             tablePanel.ColumnCount = 1;
             tablePanel.Location = new Point(13, 7);
@@ -284,6 +311,14 @@ namespace app {
                 p.Controls.Add(cBox);
             }
 
+            Panel addBtn = new Panel();
+            addBtn.Height = 45;
+            addBtn.Width = panel1.Width - 30;
+            addBtn.BackColor = Color.Green;
+            addBtn.BackgroundImageLayout = ImageLayout.Zoom;
+            addBtn.BackgroundImage = global::app.Properties.Resources.plus;
+            addBtn.MouseClick += addItemClick;
+            tablePanel.Controls.Add(addBtn, 0, tablePanel.RowCount);
 
             // TODO ACQUIRE REAL LOG
             Dictionary<string, int> devices = new Dictionary<string, int>();
@@ -323,7 +358,15 @@ namespace app {
 
         private void CBox_SelectedIndexChanged(object sender, EventArgs e) {
             string n = ((ComboBox)sender).Name;
-            send(UI_CLIENT_COMMAND_IDENTIFIER + n + "_" + ((ComboBox)sender).SelectedIndex);
+            int idx = ((ComboBox)sender).SelectedIndex;
+            if (idx != -1) {
+                send(UI_CLIENT_COMMAND_IDENTIFIER + n + "_" + idx);
+            }
+            
+        }
+
+        private void addItemClick(object sender, EventArgs e) {
+            CreateDevicePrompt.ShowDialog(this);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e) {
@@ -410,7 +453,7 @@ namespace app {
                 client.Dispose();
 
                 updateTimer.Interval = 1000;
-            } catch (Exception e) {
+            } catch (Exception) {
                 MessageBox.Show("Es konnte keine Verbindung zum Server hergestellt werden.");
                 updateTimer.Interval = 10000;
             }

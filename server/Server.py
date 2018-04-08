@@ -147,33 +147,35 @@ def client_thread(t_conn):
                                                      n_port,
                                                      n_states,
                                                      n_name)
-                    actors[n_name].connect()
-
-                    file = open(actors_file_name, 'r')
-                    all_text = ""
-                    line = file.readline()
-                    while line:
-                        all_text += line
+                    try:
+                        actors[n_name].connect()
+                        file = open(actors_file_name, 'r')
+                        all_text = ""
                         line = file.readline()
-                    file.close()
-                    all_text = all_text[0:len(all_text) - 2]
-                    all_text += ",\n"
-                    all_text += "  \"" + n_name + "\": {\n"
-                    all_text += "    \"ip\": \"" + n_ip + "\",\n"
-                    all_text += "    \"port\": " + str(n_port) + ",\n"
-                    all_text += "    \"state_count\": " + str(n_states) + ",\n"
-                    if n_state_names:
-                        all_text += "    \"state_names\": ["
-                        for name in n_state_names:
-                            all_text += "\"" + name + "\", "
-                    all_text = all_text[0:len(all_text) - 2]
-                    if n_state_names:
-                        all_text += "]\n"
-                    all_text += "  }\n"
-                    all_text += "}"
-                    file = open(actors_file_name, "w")
-                    file.write(all_text)
-                    file.close()
+                        while line:
+                            all_text += line
+                            line = file.readline()
+                        file.close()
+                        all_text = all_text[0:len(all_text) - 2]
+                        all_text += ",\n"
+                        all_text += "  \"" + n_name + "\": {\n"
+                        all_text += "    \"ip\": \"" + n_ip + "\",\n"
+                        all_text += "    \"port\": " + str(n_port) + ",\n"
+                        all_text += "    \"state_count\": " + str(n_states) + ",\n"
+                        if n_state_names:
+                            all_text += "    \"state_names\": ["
+                            for name in n_state_names:
+                                all_text += "\"" + name + "\", "
+                        all_text = all_text[0:len(all_text) - 2]
+                        if n_state_names:
+                            all_text += "]\n"
+                        all_text += "  }\n"
+                        all_text += "}"
+                        file = open(actors_file_name, "w")
+                        file.write(all_text)
+                        file.close()
+                    except:
+                        del actors[n_name]
                 msg = get_info()
                 while len(bytes(msg, "utf8")) < Constants.SERVER_ANSWER_LENGTH:
                     msg += "#"
@@ -181,7 +183,6 @@ def client_thread(t_conn):
 
         except Exception:
             print("Client disconnected")
-            traceback.print_exc()
             break
 
     t_conn.close()
