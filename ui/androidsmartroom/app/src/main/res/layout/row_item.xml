@@ -12,11 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:text="Licht"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@android:color/black"
-        android:textSize="18sp"
-        />
+        android:textSize="18sp" />
 
 
     <Button

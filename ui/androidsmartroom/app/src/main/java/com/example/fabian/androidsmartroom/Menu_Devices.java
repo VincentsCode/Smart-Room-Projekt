@@ -1,7 +1,9 @@
 package com.example.fabian.androidsmartroom;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,70 +11,59 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Menu_Devices extends Fragment{
 
-    public void client(String a, int b) {
-        String serverName = "192.168.2.109";
-        int port = 2222;
-        try {
-            Socket client = new Socket(serverName, port);
 
-            Toast.makeText(getActivity(), "erfolgreich zu Server verbunden", Toast.LENGTH_SHORT).show();
-
-            OutputStream outToServer = client.getOutputStream();
-            InputStream getFromServer = client.getInputStream();
-            DataOutputStream out = new DataOutputStream(outToServer);
-            DataInputStream input = new DataInputStream(getFromServer);
-
-            String msg = Constants.UI_CLIENT_COMMAND_IDENTIFIER + a + "_" + b;
-
-            while(msg.getBytes(StandardCharsets.UTF_8).length < 32) {
-                msg += "#";
-            }
-
-            out.write(msg.getBytes(StandardCharsets.UTF_8));
-
-            byte[] inputbyte = new byte[2048];
-            input.read(inputbyte, 0, 2048);
-            System.out.println(inputbyte);
-            String str = new String(inputbyte, StandardCharsets.UTF_8);
-            System.out.println(str);
-
-            client.close();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
+    public void newDevice() {
+        Intent i = new Intent(getContext(), AddDevice.class);
+        startActivity(i);
     }
 
+
+    public void create(View view) {
+
+        ConnectionDetector cd = new ConnectionDetector(getActivity());
+
+        String avail = cd.isInternetOn();
+        String answer;
+
+        if (avail.equals("online")) {
+            answer = DataProcess.sendDataRequest();
+
+            ArrayList<DataModel> dataModels;
+            ListView listView = view.findViewById(R.id.list);
+            dataModels = new ArrayList<>();
+            // TODO IF
+            String[] devices = answer.split("\\+");
+            for (String device : devices) {
+                String[] deviceInfo = device.split("_");
+                String availability = "";
+                if (deviceInfo[6].contains("True")) {
+                    availability = "online";
+                }
+                else {
+                    availability = "offline";
+                }
+                dataModels.add(new DataModel(deviceInfo[0], deviceInfo[1], deviceInfo[2], deviceInfo[3], deviceInfo[4], deviceInfo[5], availability));
+            }
+
+            CustomAdapter adapter = new CustomAdapter(dataModels, getContext());
+            listView.setAdapter(adapter);
+        }
+        else {
+            Toast.makeText(getActivity(), "Bitte schalten sie ihr WLAN an", Toast.LENGTH_SHORT).show();
+        }
+
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.devices, container, false);
-        ArrayList<DataModel> dataModels;
-        ListView listView = view.findViewById(R.id.list);
-
-        dataModels = new ArrayList<>();
-
-        dataModels.add(new DataModel("Apple Pie", "Android 1.0", "1","September 23, 2008"));
-        dataModels.add(new DataModel("Banana Bread", "Android 1.1", "2","February 9, 2009"));
-        dataModels.add(new DataModel("Cupcake", "Android 1.5", "3","April 27, 2009"));
-
-
-        CustomAdapter adapter = new CustomAdapter(dataModels, getContext());
-
-        listView.setAdapter(adapter);
-
+        final View view = inflater.inflate(R.layout.devices, container, false);
         return view;
     }
 
@@ -80,10 +71,32 @@ public class Menu_Devices extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        create(view);
         getActivity().setTitle("Geräte");
-    }
-    public void addListItem(int device) {
+        FloatingActionButton btn = view.findViewById(R.id.fab);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                newDevice();
+            }
+        });
+        final View viewCopy = view;
+
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        create(viewCopy);
+                    }
+                });
+            }
+        }, 1000, 1000);
 
     }
+
+
 
 }

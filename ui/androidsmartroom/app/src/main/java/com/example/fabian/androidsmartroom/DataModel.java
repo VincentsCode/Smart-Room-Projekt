@@ -4,15 +4,21 @@ package com.example.fabian.androidsmartroom;
 public class DataModel {
 
     private String name;
-    private String type;
-    private String version_number;
-    private String feature;
+    private String ip;
+    private String port;
+    private String currentState;
+    private String statesCount;
+    private String states;
+    private String availability;
 
-    DataModel(String name, String type, String version_number, String feature) {
-        this.name=name;
-        this.type=type;
-        this.version_number=version_number;
-    this.feature=feature;
+    DataModel(String name, String ip, String port, String currentState, String statesCount, String states, String availability) {
+        this.name = name;
+        this.ip = ip;
+        this.port = port;
+        this.currentState = currentState;
+        this.statesCount = statesCount;
+        this.states = states;
+        this.availability = availability;
 
     }
 
@@ -20,15 +26,27 @@ public class DataModel {
         return name;
     }
 
-    String getType() {
-        return type;
+    String getIP() {
+        return ip;
     }
 
-    String getVersion_number() {
-        return version_number;
+    String getPort() {
+        return port;
     }
 
-    String getFeature() {
-        return feature;
+    String getCurrentState() {
+        return currentState;
+    }
+
+    String getStatesCount() {
+        return statesCount;
+    }
+
+    String getStates() {
+        return states;
+    }
+
+    String getAvailability() {
+        return availability;
     }
 }
