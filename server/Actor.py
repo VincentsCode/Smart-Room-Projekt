@@ -47,10 +47,11 @@ class Actor:
             .format(self.ip, self.port, self.connected, self.state, self.state_count, self.state_names)
 
     def connect(self):
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.socket.connect((self.ip, self.port))
-        self.connected = True
-        self.switch_to(0)
+        if not self.connected:
+            self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.socket.connect((self.ip, self.port))
+            self.connected = True
+            self.switch_to(0)
 
     def switch(self):
         if self.connected:
@@ -64,25 +65,36 @@ class Actor:
             return False
 
     def switch_to(self, n_state):
-        if self.connected and n_state <= self.state_count:
-            msg = str(n_state)
-            while len(bytes(msg, "utf8")) < 16:
-                msg += "#"
-            self.socket.sendall(bytes(msg, "utf8"))
-            answer = self.socket.recv(Constants.ANSWER_BYTES_LENGTH)
-            if str(answer, "utf8") == Constants.ANSWER_POSITIVE:
-                if n_state != self.state:
-                    self.state = n_state
-                    d = os.path.realpath('.')
-                    now = datetime.datetime.now()
-                    folder_name = str(now.day) + "_" + str(now.month) + "_" + str(now.year)
-                    file = open(d + "\\log\\" + folder_name + "\\" + self.name + ".log", "a")
-                    file.write(str(int(time.time())) + "_" + str(n_state) + "\n")
-                    file.close()
-                return True
+        try:
+            if self.connected and n_state <= self.state_count:
+                msg = str(n_state)
+                while len(bytes(msg, "utf8")) < 16:
+                    msg += "#"
+                self.socket.sendall(bytes(msg, "utf8"))
+                answer = self.socket.recv(Constants.ANSWER_BYTES_LENGTH)
+                if str(answer, "utf8") == Constants.ANSWER_POSITIVE:
+                    if n_state != self.state:
+                        self.state = n_state
+                        d = os.path.realpath('.')
+                        now = datetime.datetime.now()
+                        folder_name = str(now.day) + "_" + str(now.month) + "_" + str(now.year)
+                        file = open(d + "\\log\\" + folder_name + "\\" + self.name + ".log", "a")
+                        file.write(str(int(time.time())) + "_" + str(n_state) + "\n")
+                        file.close()
+                    return True
+                else:
+                    return False
             else:
                 return False
+        except:
+            return False
+
+    def check_connection(self):
+        if self.switch_to(self.state):
+            self.connected = True
+            return True
         else:
+            self.connected = False
             return False
 
     def get_state(self, as_string=False):

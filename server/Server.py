@@ -3,13 +3,18 @@ import os
 import socket
 from _thread import start_new_thread
 import traceback
+from apscheduler.schedulers.background import BackgroundScheduler
 import datetime
 
 import Actor
 import Constants
 
+# Settings
+# Logging
+log_data_requests = False
+
+# Get current directory
 c_dir = os.path.realpath('.')
-actors_file_name = c_dir + '\\data\\actors.json'
 
 # Create Log-Folder
 now = datetime.datetime.now()
@@ -17,7 +22,8 @@ folder_name = str(now.day) + "_" + str(now.month) + "_" + str(now.year)
 if not os.path.exists(c_dir + "\\log\\" + folder_name):
     os.makedirs(c_dir + "\\log\\" + folder_name)
 
-# GET ACTORS FROM JSON
+# Get actors from json
+actors_file_name = c_dir + '\\data\\actors.json'
 actors_file = open(actors_file_name, 'r')
 actors_list = json.load(actors_file)
 actors_file.close()
@@ -28,6 +34,32 @@ for i in actors_list:
 
 max_clients = 10
 port = 2222
+
+
+def connect_missing():
+    for actor in actors:
+        if actors[actor] is not None:
+            b = actors[actor].connected
+            try:
+                actors[actor].connect()
+                if not b:
+                    c_t = "[" + str(now.day) + "." + str(now.month) + "." + str(now.year) + ", " \
+                          + str(now.hour) + ":" + str(now.minute) + ":" + str(now.second) + "]"
+                    pre = "[SERVER]  "
+                    print(c_t, pre, actor, "connected")
+            except Exception:
+                pass
+
+
+def update_connection_states():
+    for actor in actors:
+        b = actors[actor].connected
+        b2 = actors[actor].check_connection()
+        if not b2 and b:
+            c_t = "[" + str(now.day) + "." + str(now.month) + "." + str(now.year) + ", " \
+                  + str(now.hour) + ":" + str(now.minute) + ":" + str(now.second) + "]"
+            pre = "[SERVER]  "
+            print(c_t, pre, actor, "disconnected")
 
 
 def get_info():
@@ -63,6 +95,7 @@ def get_logs():
 
 
 def client_thread(t_conn):
+    pre = "[" + str(t_conn.getpeername()[0]) + ":" + str(t_conn.getpeername()[1]) + "]  "
     while True:
         # noinspection PyBroadException
         try:
@@ -70,11 +103,15 @@ def client_thread(t_conn):
             if not data:
                 break
             c_msg = str(data, "utf8")
+            c_t = "[" + str(now.day) + "." + str(now.month) + "." + str(now.year) + ", " \
+                  + str(now.hour) + ":" + str(now.minute) + ":" + str(now.second) + "] "
+            pre_c = c_t + pre
 
             # REQUESTS
             # UI_CLIENT_DATA_REQUEST
             if c_msg == Constants.UI_CLIENT_DATA_REQUEST:
-                print("Received UI_CLIENT_DATA_REQUEST")
+                if log_data_requests:
+                    print(pre_c, "Received UI_CLIENT_DATA_REQUEST")
                 msg = get_info()
                 while len(bytes(msg, "utf8")) < Constants.SERVER_ANSWER_LENGTH:
                     msg += "#"
@@ -82,7 +119,7 @@ def client_thread(t_conn):
 
             # UI_CLIENT_DEVICES_LOG_REQUEST
             if c_msg == Constants.UI_CLIENT_DEVICES_LOG_REQUEST:
-                print("Received UI_CLIENT_DEVICES_LOG_REQUEST")
+                print(pre_c, "Received UI_CLIENT_DEVICES_LOG_REQUEST")
                 msg = get_logs()
                 while len(bytes(msg, "utf8")) < Constants.SERVER_ANSWER_LENGTH:
                     msg += "#"
@@ -110,7 +147,7 @@ def client_thread(t_conn):
             # UI_CLIENT_COMMAND_IDENTIFIER
             if Constants.UI_CLIENT_COMMAND_IDENTIFIER in c_msg:
                 c_msg = c_msg.replace("#", "")
-                print("Received UI_CLIENT_COMMAND:", c_msg)
+                print(pre_c, "Received UI_CLIENT_COMMAND:", c_msg)
                 c_parts = c_msg.split("_")
                 c_cmd_name = c_parts[1]
                 c_cmd_n_state = c_parts[2]
@@ -129,6 +166,7 @@ def client_thread(t_conn):
             # UI_CLIENT_ADD_DEVICE_IDENTIFIER
             if Constants.UI_CLIENT_ADD_DEVICE_IDENTIFIER in c_msg:
                 c_msg = c_msg.replace("#", "")
+                print(pre_c, "Received UI_CLIENT_ADD_DEVICE:", c_msg)
                 c_parts = c_msg.split("_")
                 n_name = c_parts[1]
                 n_ip = c_parts[2]
@@ -182,7 +220,6 @@ def client_thread(t_conn):
                 t_conn.sendall(bytes(msg, "utf8"))
 
         except Exception:
-            print("Client disconnected")
             break
 
     t_conn.close()
@@ -205,19 +242,34 @@ for actor_name in actors:
                                          actor_info["state_count"])
 
 # CONNECT TO ACTORS
+pre = "[SERVER]  "
 for actor in actors:
     try:
         actors[actor].connect()
-        print(actor, "connected")
+        c_t = "[" + str(now.day) + "." + str(now.month) + "." + str(now.year) + ", " \
+              + str(now.hour) + ":" + str(now.minute) + ":" + str(now.second) + "]"
+        print(c_t, pre, actor, "connected")
     except Exception:
-        print(actor, "offline")
+        c_t = "[" + str(now.day) + "." + str(now.month) + "." + str(now.year) + ", " \
+              + str(now.hour) + ":" + str(now.minute) + ":" + str(now.second) + "]"
+        print(c_t, pre, actor, "offline")
+
+# START UPDATE-TIMERS
+t_delay = 6
+scheduler = BackgroundScheduler()
+scheduler.add_job(update_connection_states, 'interval', seconds=t_delay)
+scheduler.add_job(connect_missing, 'interval', seconds=t_delay)
+scheduler.start()
+
 
 # START UI-SERVER
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.bind(('', port))
 server_socket.listen(max_clients)
+c_t = "[" + str(now.day) + "." + str(now.month) + "." + str(now.year) + ", " \
+      + str(now.hour) + ":" + str(now.minute) + ":" + str(now.second) + "]"
+print(c_t, pre, "Server started")
 
 while True:
     conn, addr = server_socket.accept()
-    print(addr[0] + ":" + str(addr[1]), "connected")
     start_new_thread(client_thread, (conn,))
