@@ -5,6 +5,12 @@
     "state_count": 2,
     "state_names": ["AN", "AUS"]
   },
+  "Light1": {
+    "ip": "192.168.2.109",
+    "port": 1340,
+    "state_count": 2,
+    "state_names": ["An", " Aus"]
+  },
   "Computer0": {
     "ip": "127.0.0.1",
     "port": 1338,
