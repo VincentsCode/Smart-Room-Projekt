@@ -2,7 +2,6 @@ package com.example.fabian.androidsmartroom;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,9 +32,12 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
         switch (v.getId()) {
             case R.id.item_info:
                 assert dataModel != null;
-
-                Snackbar.make(v, "Version Number", Snackbar.LENGTH_LONG).setAction("No action", null).show();
-                break;
+                String state = dataModel.getCurrentStateAsInt();
+                int stateAsInt = Integer.valueOf(state);
+                int maxState = Integer.valueOf(dataModel.getStatesCount()) - 1;
+                String name = dataModel.getName();
+                DevicesManager devicesManager = new DevicesManager(stateAsInt, maxState, name);
+                devicesManager.switchState();
         }
     }
 
@@ -60,9 +62,22 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
             viewHolder = (ViewHolder) convertView.getTag();
         }
         assert dataModel != null;
-        viewHolder.txtName.setText(dataModel.getName() + " (" + dataModel.getAvailability() + ")");
-        viewHolder.info.setOnClickListener(this);
-        viewHolder.info.setTag(position);
+        if (dataModel.getAvailability().equals("online")) {
+            viewHolder.txtName.setText(dataModel.getName() + " (" + dataModel.getAvailability() + ")");
+            viewHolder.info.setOnClickListener(this);
+            viewHolder.info.setTag(position);
+            viewHolder.info.setText(dataModel.getCurrentState());
+        }
+        else {
+            viewHolder.txtName.setText(dataModel.getName() + " (" + dataModel.getAvailability() + ")");
+            viewHolder.info.setOnClickListener(this);
+            viewHolder.info.setTag(position);
+            viewHolder.info.setText(dataModel.getCurrentState());
+            viewHolder.info.setEnabled(false);
+        }
+
+
+
 
         return convertView;
     }

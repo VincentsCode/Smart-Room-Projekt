@@ -16,4 +16,6 @@ public class Constants {
     final public static String UI_CLIENT_COMMAND_IDENTIFIER = "CMD_";
     final public static String UI_CLIENT_SYSTEM_COMMAND_IDENTIFIER = "SYS_";
     final public static String UI_CLIENT_ADD_DEVICE_IDENTIFIER = "ADD_";
+
+    final public static String UI_CLIENT_NOT_CONNECTED = "not connected";
 }

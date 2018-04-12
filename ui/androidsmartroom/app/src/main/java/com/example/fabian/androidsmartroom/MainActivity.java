@@ -105,7 +105,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         textView.setVisibility(View.INVISIBLE);
-        imageView.setVisibility(View.INVISIBLE);
 
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();

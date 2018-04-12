@@ -1,6 +1,5 @@
 package com.example.fabian.androidsmartroom;
 
-
 public class DataModel {
 
     private String name;
@@ -30,12 +29,15 @@ public class DataModel {
         return ip;
     }
 
-    String getPort() {
-        return port;
-    }
+    String getPort() { return port; }
 
     String getCurrentState() {
-        return currentState;
+        String states = getStates();
+        states = states.replace("[", "");
+        states = states.replace("]", "");
+        states = states.replace("'", "");
+        String[] statesArray = states.split(",");
+        return statesArray[Integer.valueOf(currentState)];
     }
 
     String getStatesCount() {
@@ -48,5 +50,9 @@ public class DataModel {
 
     String getAvailability() {
         return availability;
+    }
+
+    String getCurrentStateAsInt() {
+        return currentState;
     }
 }

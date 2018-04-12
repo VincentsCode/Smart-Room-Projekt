@@ -27,35 +27,51 @@ public class Menu_Devices extends Fragment{
     public void create(View view) {
 
         ConnectionDetector cd = new ConnectionDetector(getActivity());
-
         String avail = cd.isInternetOn();
+        DataProcess dataProcess = new DataProcess();
         String answer;
+        String connection = dataProcess.sendDataRequest();
 
-        if (avail.equals("online")) {
+        if (avail.equals("online") && connection != Constants.UI_CLIENT_NOT_CONNECTED) {
             answer = DataProcess.sendDataRequest();
 
-            ArrayList<DataModel> dataModels;
-            ListView listView = view.findViewById(R.id.list);
-            dataModels = new ArrayList<>();
-            // TODO IF
-            String[] devices = answer.split("\\+");
-            for (String device : devices) {
-                String[] deviceInfo = device.split("_");
-                String availability = "";
-                if (deviceInfo[6].contains("True")) {
-                    availability = "online";
-                }
-                else {
-                    availability = "offline";
-                }
-                dataModels.add(new DataModel(deviceInfo[0], deviceInfo[1], deviceInfo[2], deviceInfo[3], deviceInfo[4], deviceInfo[5], availability));
+            if (answer.equals(Constants.UI_CLIENT_NOT_CONNECTED)) {
             }
 
-            CustomAdapter adapter = new CustomAdapter(dataModels, getContext());
-            listView.setAdapter(adapter);
+            else {
+                ArrayList<DataModel> dataModels;
+                ListView listView = view.findViewById(R.id.list);
+                dataModels = new ArrayList<>();
+                // TODO IF
+                String[] devices = answer.split("\\+");
+                for (String device : devices) {
+                    String[] deviceInfo = device.split("_");
+                    String availability = "";
+                    if (deviceInfo[6].contains("True")) {
+                        availability = "online";
+                    }
+                    else {
+                        if (avail.equals("online")) {
+                            availability = "offline";
+                        }
+                        else availability = "Server nicht gefunden";
+
+                    }
+                    dataModels.add(new DataModel(deviceInfo[0], deviceInfo[1], deviceInfo[2], deviceInfo[3], deviceInfo[4], deviceInfo[5], availability));
+                }
+
+                CustomAdapter adapter = new CustomAdapter(dataModels, getContext());
+                listView.setAdapter(adapter);
+            }
+
         }
         else {
-            Toast.makeText(getActivity(), "Bitte schalten sie ihr WLAN an", Toast.LENGTH_SHORT).show();
+            if (avail.equals("offline")) {
+                Toast.makeText(getActivity(), "Bitte schalten Sie ihr WLAN an", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(getActivity(), "Bitte verbinden Sie sich zum Server", Toast.LENGTH_SHORT).show();
+            }
         }
 
     }

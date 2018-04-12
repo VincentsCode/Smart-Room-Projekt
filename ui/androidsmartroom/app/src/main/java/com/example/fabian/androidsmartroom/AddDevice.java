@@ -44,9 +44,16 @@ public class AddDevice extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ConnectionManager.send(getData());
-                Toast.makeText(AddDevice.this, "Gerät hinzugefügt", Toast.LENGTH_SHORT).show();
-                backToDevices();
+                String status = ConnectionManager.send(getData());
+
+                if (status.equals(Constants.UI_CLIENT_NOT_CONNECTED)) {
+                    Toast.makeText(AddDevice.this, "Gerät konnte nicht hinzugefügt werden", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(AddDevice.this, "Gerät hinzugefügt", Toast.LENGTH_SHORT).show();
+                    backToDevices();
+                }
+
             }
         });
 

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@android:color/holo_green_light"
+        app:backgroundTint="#FF5E3A"
         app:fabSize="normal"
         app:srcCompat="@android:drawable/ic_menu_add" />
 
