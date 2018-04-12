@@ -51,7 +51,7 @@
         android:layout_alignBottom="@+id/textView10"
         android:layout_marginStart="19dp"
         android:layout_toEndOf="@+id/view2"
-        android:text="Trainingsverwaltung" />
+        android:text="Trainingsverwaltung und IPs" />
 
     <EditText
         android:id="@+id/editTextFirstName"
@@ -72,6 +72,17 @@
         android:layout_marginTop="11dp"
         android:ems="10"
         android:hint="Nachname"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/editTextServerIp"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_alignBaseline="@+id/editTextLastName"
+        android:layout_alignBottom="@+id/editTextLastName"
+        android:layout_alignStart="@+id/switch1"
+        android:ems="10"
+        android:hint="Server IP"
         android:inputType="textPersonName" />
 
 </RelativeLayout>

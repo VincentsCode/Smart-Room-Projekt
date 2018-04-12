@@ -12,7 +12,8 @@ import java.nio.charset.StandardCharsets;
 public class ConnectionManager {
     public static String send(String message){
        	try {
-			String serverName = "192.168.2.109";
+			SettingsActivity settingsActivity = new SettingsActivity();
+			String serverName = settingsActivity.serverIp.toString();
 			String str = "";
 			int port = 2222;
 			Socket client = new Socket();
