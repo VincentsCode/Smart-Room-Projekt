@@ -10,9 +10,9 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/textView11"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/button3"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="58dp"
+        android:layout_marginBottom="42dp"
         android:ems="10"
         android:hint="Stadien z.B. An, Aus"
         android:inputType="textPersonName"
@@ -61,11 +61,91 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="19dp"
-        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="14dp"
+        android:layout_toStartOf="@+id/view4"
         android:text="hinzufügen"
+        android:textColor="@color/colorPrimaryDark"
         tools:layout_editor_absoluteX="257dp"
         tools:layout_editor_absoluteY="447dp" />
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark" />
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimaryDark" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentStart="true"
+        android:background="@color/colorPrimaryDark" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/name"
+        android:layout_marginTop="33dp"
+        android:background="@color/colorPrimaryDark" />
+
+    <View
+        android:id="@+id/view6"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/textView12"
+        android:background="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view1"
+        android:layout_toEndOf="@+id/view3"
+        android:text="Netzwerkeinstellungen"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/view3"
+        android:text="Name"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/port"
+        android:layout_marginTop="25dp"
+        android:text="Geräteeinstellungen"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp" />
+
+    <View
+        android:id="@+id/view13"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/button3"
+        android:layout_marginBottom="16dp"
+        android:layout_toEndOf="@+id/view3"
+        android:background="@color/colorPrimaryDark" />
 
 </RelativeLayout>

@@ -30,25 +30,15 @@ public class SettingsActivity extends AppCompatActivity {
         c = this;
         pref = getSharedPreferences("Einstellungen", 0);
         editor = pref.edit();
-        firstName = findViewById(R.id.editTextFirstName);
-        lastName = findViewById(R.id.editTextLastName);
         training = findViewById(R.id.switch1);
-        serverIp = findViewById(R.id.editTextServerIp);
-
         loadValues();
 
     }
 
     public void saveValues() {
 
-        String nameFirst = firstName.getText().toString();
-        String nameLast = lastName.getText().toString();
-        String ipServer = serverIp.getText().toString();
         boolean isSwitchChecked = training.isChecked();
 
-        editor.putString("FirstName", nameFirst);
-        editor.putString("LastName", nameLast);
-        editor.putString("ServerIP", ipServer);
         editor.putBoolean("Training", isSwitchChecked);
 
         editor.apply();
@@ -57,9 +47,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void loadValues() {
 
-        firstName.setText(pref.getString("FirstName", ""));
-        lastName.setText(pref.getString("LastName", ""));
-        serverIp.setText(pref.getString("ServerIP", ""));
         training.setChecked(pref.getBoolean("Training", true));
 
     }

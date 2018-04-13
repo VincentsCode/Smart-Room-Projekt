@@ -16,18 +16,18 @@ public class ConnectionManager {
 			String serverName = "";
 			String serverIP = null;
        		SettingsActivity settingsActivity = new SettingsActivity();
-			try {
+			/*try {
 				serverIP = settingsActivity.getIP();
 			}
 			catch (NullPointerException n) {
 				serverIP = "";
-			}
+			}*/
 			if (serverIP != "") {
 				serverName = serverIP;
 				String str = "";
 				int port = 2222;
 				Socket client = new Socket();
-				client.connect(new InetSocketAddress(serverName, port), 400);
+				client.connect(new InetSocketAddress("192.168.2.109", port), 400);
 
 				OutputStream outToServer = client.getOutputStream();
 				InputStream getFromServer = client.getInputStream();
