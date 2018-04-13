@@ -16,7 +16,7 @@ public class SettingsActivity extends AppCompatActivity {
     EditText firstName;
     EditText lastName;
     Switch training;
-    EditText serverIp;
+    public static EditText serverIp;
 
     Context c;
 
@@ -60,7 +60,12 @@ public class SettingsActivity extends AppCompatActivity {
         firstName.setText(pref.getString("FirstName", ""));
         lastName.setText(pref.getString("LastName", ""));
         serverIp.setText(pref.getString("ServerIP", ""));
+        training.setChecked(pref.getBoolean("Training", true));
 
+    }
+
+    public String getIP() {
+        return serverIp.getText().toString();
     }
 
     @Override
