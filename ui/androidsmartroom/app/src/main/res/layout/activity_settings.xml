@@ -14,7 +14,8 @@
         android:layout_below="@+id/view"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
-        android:text="Training    " />
+        android:text="Training    "
+        android:textColor="@color/colorPrimaryDark" />
 
     <View
         android:layout_width="match_parent"

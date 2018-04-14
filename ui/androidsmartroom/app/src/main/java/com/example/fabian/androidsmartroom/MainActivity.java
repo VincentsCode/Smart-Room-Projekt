@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         Fragment fragment = null;
-        TextView textView = findViewById(R.id.gutenTag);
+        TextView textView = findViewById(R.id.textView15);
         ImageView imageView = findViewById(R.id.image);
 
         int id = item.getItemId();
@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         textView.setVisibility(View.INVISIBLE);
+        imageView.setVisibility(View.INVISIBLE);
 
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();

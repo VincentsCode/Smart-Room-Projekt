@@ -4,19 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Menu_Devices extends Fragment{
+    View mView = null;
 
+    Snackbar tmp = null;
 
     public void newDevice() {
         Intent i = new Intent(getContext(), AddDevice.class);
@@ -25,7 +27,10 @@ public class Menu_Devices extends Fragment{
 
 
     public void create(View view) {
-
+        if (mView == null)
+             mView = view;
+        if (tmp == null && mView != null)
+            tmp = Snackbar.make(mView, "Es konnte keine Verbindung zum Server hergestellt werden", Snackbar.LENGTH_INDEFINITE);
         ConnectionDetector cd = new ConnectionDetector(getActivity());
         String avail = cd.isInternetOn();
         DataProcess dataProcess = new DataProcess();
@@ -34,7 +39,8 @@ public class Menu_Devices extends Fragment{
 
         if (avail.equals("online") && connection != Constants.UI_CLIENT_NOT_CONNECTED) {
             answer = DataProcess.sendDataRequest();
-
+            if (tmp.isShown())
+                tmp.dismiss();
             if (answer.equals(Constants.UI_CLIENT_NOT_CONNECTED)) {
             }
 
@@ -66,12 +72,8 @@ public class Menu_Devices extends Fragment{
 
         }
         else {
-            if (avail.equals("offline")) {
-                Toast.makeText(getActivity(), "Bitte schalten Sie ihr WLAN an", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                Toast.makeText(getActivity(), "Bitte verbinden Sie sich zum Server", Toast.LENGTH_SHORT).show();
-            }
+            if (!tmp.isShown())
+                tmp.show();
         }
 
     }
@@ -99,17 +101,24 @@ public class Menu_Devices extends Fragment{
         final View viewCopy = view;
 
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        create(viewCopy);
+
+        if(getActivity() != null) {
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    if (getActivity() != null) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                create(viewCopy);
+                            }
+                        });
                     }
-                });
-            }
-        }, 1000, 1000);
+                }
+            }, 1000, 1000);
+        }
+
+
 
     }
 

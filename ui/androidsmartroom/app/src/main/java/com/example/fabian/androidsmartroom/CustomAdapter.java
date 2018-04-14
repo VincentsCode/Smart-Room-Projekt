@@ -67,6 +67,7 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
             viewHolder.info.setOnClickListener(this);
             viewHolder.info.setTag(position);
             viewHolder.info.setText(dataModel.getCurrentState());
+            viewHolder.info.setEnabled(true);
         }
         else {
             viewHolder.txtName.setText(dataModel.getName() + " (" + dataModel.getAvailability() + ")");
