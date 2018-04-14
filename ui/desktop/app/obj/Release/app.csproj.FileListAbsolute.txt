@@ -8,3 +8,4 @@ C:\Users\vince\Desktop\Jufo 2019 [PRIVAT]\ui\desktop\app\obj\Release\app.csproj.
 C:\Users\vince\Desktop\Jufo 2019 [PRIVAT]\ui\desktop\app\obj\Release\app.csproj.CoreCompileInputs.cache
 C:\Users\vince\Desktop\Jufo 2019 [PRIVAT]\ui\desktop\app\obj\Release\app.exe
 C:\Users\vince\Desktop\Jufo 2019 [PRIVAT]\ui\desktop\app\obj\Release\app.pdb
+C:\Users\vince\Desktop\Jufo 2019 [PRIVAT]\ui\desktop\app\obj\Release\app.csprojResolveAssemblyReference.cache
