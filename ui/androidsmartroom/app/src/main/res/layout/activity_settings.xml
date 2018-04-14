@@ -14,7 +14,6 @@
         android:layout_below="@+id/view"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
-        android:text="Training    "
         android:textColor="@color/colorPrimaryDark" />
 
     <View
@@ -55,6 +54,45 @@
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/view3"
         android:background="@color/colorPrimaryDark" />
+
+    <View
+        android:id="@+id/view6"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/button2"
+        android:layout_marginTop="25dp"
+        android:layout_toStartOf="@+id/view4"
+        android:background="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view2"
+        android:layout_toEndOf="@+id/view3"
+        android:text="Geräte"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view"
+        android:layout_toEndOf="@+id/view3"
+        android:text="Training"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView14"
+        android:layout_centerHorizontal="true"
+        android:text="Gerät hinzufügen"
+        android:textColor="@color/colorPrimaryDark"
+        android:onClick="onClick"/>
 
 
 </RelativeLayout>

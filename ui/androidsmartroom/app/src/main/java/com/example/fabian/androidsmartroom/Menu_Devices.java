@@ -19,6 +19,7 @@ public class Menu_Devices extends Fragment{
     View mView = null;
 
     Snackbar tmp = null;
+    int count = 0;
 
     public void newDevice() {
         Intent i = new Intent(getContext(), AddDevice.class);
@@ -107,12 +108,15 @@ public class Menu_Devices extends Fragment{
                 @Override
                 public void run() {
                     if (getActivity() != null) {
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                create(viewCopy);
-                            }
-                        });
+                        if (count > 2)
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    create(viewCopy);
+                                }
+                            });
+                        else
+                            count++;
                     }
                 }
             }, 1000, 1000);

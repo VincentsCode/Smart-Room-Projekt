@@ -10,9 +10,9 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView11"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
+        android:layout_alignStart="@+id/ip"
+        android:layout_below="@+id/view20"
+        android:layout_marginTop="28dp"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
@@ -26,7 +26,7 @@
         android:layout_above="@+id/port"
         android:layout_alignStart="@+id/port"
         android:ems="10"
-        android:hint="IP"
+        android:hint="Geräte-IP"
         android:inputType="textPersonName"
         tools:layout_editor_absoluteX="85dp"
         tools:layout_editor_absoluteY="114dp" />
@@ -67,7 +67,8 @@
         android:text="hinzufügen"
         android:textColor="@color/colorPrimaryDark"
         tools:layout_editor_absoluteX="257dp"
-        tools:layout_editor_absoluteY="447dp" />
+        tools:layout_editor_absoluteY="447dp"
+        />
 
     <View
         android:id="@+id/view3"
@@ -122,9 +123,9 @@
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/view2"
         android:layout_toEndOf="@+id/view3"
-        android:text="Name"
+        android:text="Gerätename"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp" />
 
@@ -144,8 +145,33 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_above="@+id/button3"
-        android:layout_marginBottom="16dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="15dp"
+        android:background="@color/colorPrimaryDark" />
+
+    <View
+        android:id="@+id/view20"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView11"
+        android:background="@color/colorPrimaryDark" />
+
+    <View
+        android:id="@+id/view22"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/textView12"
         android:layout_toEndOf="@+id/view3"
         android:background="@color/colorPrimaryDark" />
+
+    <View
+        android:id="@+id/view23"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignBottom="@+id/textView10"
+        android:layout_toEndOf="@+id/view3"
+        android:background="@color/colorPrimaryDark" />
+
 
 </RelativeLayout>

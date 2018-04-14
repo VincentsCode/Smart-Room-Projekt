@@ -5,11 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+import android.widget.Toolbar;
+
+import java.util.Objects;
 
 public class AddDevice extends AppCompatActivity {
 
     public void backToDevices() {
-
         finish();
     }
 
@@ -23,14 +26,21 @@ public class AddDevice extends AppCompatActivity {
         String portText = port.getText().toString();
         String statesText = states.getText().toString();
 
-        String[] stateNames = statesText.split(",");
-        int stateCount = stateNames.length;
+        if (!Objects.equals(nameText, "") && !Objects.equals(ipText, "") && !Objects.equals(portText, "") && !Objects.equals(statesText, "")) {
+            String[] stateNames = statesText.split(",");
+            int stateCount = stateNames.length;
 
-        String res = "ADD_" + nameText + "_" + ipText + "_" + portText + "_" + stateCount;
-        for (String n : stateNames) {
-            res += "_" + n;
+            String res = "ADD_" + nameText + "_" + ipText + "_" + portText + "_" + stateCount;
+            for (String n : stateNames) {
+                res += "_" + n;
+            }
+            backToDevices();
+            return res;
         }
-        return res;
+        else {
+            Toast.makeText(this, "Bitte füllen Sie alle Felder aus", Toast.LENGTH_SHORT).show();
+        }
+        return null;
     }
 
     @Override
@@ -40,21 +50,23 @@ public class AddDevice extends AppCompatActivity {
         setTitle("Gerät hinzufügen");
         Button addBtn = findViewById(R.id.button3);
 
-        addBtn.setOnClickListener(new View.OnClickListener() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Button addDevice = findViewById(R.id.button3);
+        addDevice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //String status = ConnectionManager.send(getData());
-
-                //if (status.equals(Constants.UI_CLIENT_NOT_CONNECTED)) {
-                  //  Toast.makeText(AddDevice.this, "Gerät konnte nicht hinzugefügt werden", Toast.LENGTH_SHORT).show();
-                //}
-                //else {
-                   // Toast.makeText(AddDevice.this, "Gerät hinzugefügt", Toast.LENGTH_SHORT).show();
-                    //backToDevices();
-                //}
-
+                getData();
             }
         });
-
     }
+
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
 }
