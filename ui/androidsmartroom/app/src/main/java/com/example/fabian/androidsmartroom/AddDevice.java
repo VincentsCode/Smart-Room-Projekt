@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class AddDevice extends AppCompatActivity {
 
@@ -44,15 +43,15 @@ public class AddDevice extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String status = ConnectionManager.send(getData());
+                //String status = ConnectionManager.send(getData());
 
-                if (status.equals(Constants.UI_CLIENT_NOT_CONNECTED)) {
-                    Toast.makeText(AddDevice.this, "Gerät konnte nicht hinzugefügt werden", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(AddDevice.this, "Gerät hinzugefügt", Toast.LENGTH_SHORT).show();
-                    backToDevices();
-                }
+                //if (status.equals(Constants.UI_CLIENT_NOT_CONNECTED)) {
+                  //  Toast.makeText(AddDevice.this, "Gerät konnte nicht hinzugefügt werden", Toast.LENGTH_SHORT).show();
+                //}
+                //else {
+                   // Toast.makeText(AddDevice.this, "Gerät hinzugefügt", Toast.LENGTH_SHORT).show();
+                    //backToDevices();
+                //}
 
             }
         });
