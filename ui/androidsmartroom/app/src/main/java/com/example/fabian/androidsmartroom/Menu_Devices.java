@@ -17,6 +17,8 @@ import java.util.TimerTask;
 
 public class Menu_Devices extends Fragment{
     View mView = null;
+    String lastAnswer = "";
+
 
     Snackbar tmp = null;
     int count = 0;
@@ -31,25 +33,24 @@ public class Menu_Devices extends Fragment{
         if (mView == null)
              mView = view;
         if (tmp == null && mView != null)
+
             tmp = Snackbar.make(mView, "Es konnte keine Verbindung zum Server hergestellt werden", Snackbar.LENGTH_INDEFINITE);
         ConnectionDetector cd = new ConnectionDetector(getActivity());
         String avail = cd.isInternetOn();
         DataProcess dataProcess = new DataProcess();
         String answer;
         String connection = dataProcess.sendDataRequest();
-
         if (avail.equals("online") && connection != Constants.UI_CLIENT_NOT_CONNECTED) {
             answer = DataProcess.sendDataRequest();
             if (tmp.isShown())
                 tmp.dismiss();
-            if (answer.equals(Constants.UI_CLIENT_NOT_CONNECTED)) {
-            }
+            if (answer.equals(Constants.UI_CLIENT_NOT_CONNECTED) || answer.equals(lastAnswer)) {
 
-            else {
+            } else {
+                lastAnswer = answer;
                 ArrayList<DataModel> dataModels;
                 ListView listView = view.findViewById(R.id.list);
                 dataModels = new ArrayList<>();
-                // TODO IF
                 String[] devices = answer.split("\\+");
                 for (String device : devices) {
                     String[] deviceInfo = device.split("_");

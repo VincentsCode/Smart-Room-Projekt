@@ -35,6 +35,7 @@ public class AddDevice extends AppCompatActivity {
                 res += "_" + n;
             }
             backToDevices();
+            ConnectionManager.send(res);
             return res;
         }
         else {

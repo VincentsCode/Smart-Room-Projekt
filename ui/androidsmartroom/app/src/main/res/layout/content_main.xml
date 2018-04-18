@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="2dp"
             android:layout_marginTop="300dp"
-            android:text="Herzlich Willkommen! \n \nIn dieser App haben sie Zugriff auf alle Daten Ihres SMART ROOMS, wie beispielsweise die Trainingsdaten der künstlichen Intelligenz oder Ihren täglichen Energieverbrauch. \n \nUnter 'Tagesübersicht' habe Sie Zugriff auf diese Daten. \n \nUnter 'Geräte' können Sie alle Geräte in ihren Stadien wechseln. \n \nUnter 'Live-Kamera' verfügen Sie über einen Livestream zu Ihrem Zimmer." />
+            android:text="Herzlich Willkommen! \n \nIn dieser App haben sie Zugriff auf alle Daten Ihres SMART ROOMS, wie beispielsweise die Trainingsdaten der künstlichen Intelligenz. \n \nUnter 'Tagesübersicht' habe Sie Zugriff auf diese Daten. \n \nUnter 'Geräte' können Sie alle Geräte in ihren Stadien wechseln. \n \nUnter 'Live-Kamera' verfügen Sie über einen Livestream zu Ihrem Zimmer." />
 
 
     </FrameLayout>

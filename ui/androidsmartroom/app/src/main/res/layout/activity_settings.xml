@@ -11,9 +11,9 @@
         android:id="@+id/switch1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/view"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
+        android:layout_below="@+id/textView16"
+        android:layout_marginTop="12dp"
+        android:layout_toEndOf="@+id/textView17"
         android:textColor="@color/colorPrimaryDark" />
 
     <View
@@ -89,10 +89,92 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView14"
-        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="18dp"
+        android:layout_toStartOf="@+id/view4"
+        android:onClick="onClick"
         android:text="Gerät hinzufügen"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <View
+        android:id="@+id/view7"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/view6"
+        android:layout_marginTop="137dp"
+        android:layout_toEndOf="@+id/view3"
+        android:background="@color/colorPrimaryDark" />
+
+    <View
+        android:id="@+id/view8"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/button5"
+        android:background="@color/colorPrimaryDark" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:onClick="onClick2"
+        android:text="Über das Projekt"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/view6"
+        android:text="Projekt"
         android:textColor="@color/colorPrimaryDark"
-        android:onClick="onClick"/>
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/switch1"
+        android:layout_alignBottom="@+id/switch1"
+        android:layout_alignStart="@+id/button2"
+        android:layout_marginStart="35dp"
+        android:onClick="onClick3"
+        android:text="Info"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView14"
+        android:layout_marginStart="22dp"
+        android:layout_toEndOf="@+id/view3"
+        android:onClick="onCLick5"
+        android:text="Geräte verwalten"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/view7"
+        android:layout_toEndOf="@+id/view3"
+        android:text="Entwickler"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView19"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="37dp"
+        android:onClick="onCLick4"
+        android:text="Über die Entwickler"
+        android:textColor="@color/colorPrimaryDark" />
 
 
 </RelativeLayout>
