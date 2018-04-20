@@ -22,7 +22,6 @@ public class SettingsActivity extends AppCompatActivity {
     public static EditText serverIp;
     TextView isChecked;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,22 +33,14 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         training = findViewById(R.id.switch1);
         training.setChecked(true);
-
-        if (training.isChecked()) {
-            training.setText("aktiviert");
-        }
-        else {
-            training.setText("deaktiviert");
-        }
-
         training.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b) {
-                    isChecked.setText("aktiviert");
+                    Toast.makeText(SettingsActivity.this, "Training aktiviert", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    isChecked.setText("deaktiviert");
+                    Toast.makeText(SettingsActivity.this, "Training deaktiviert", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -84,4 +75,5 @@ public class SettingsActivity extends AppCompatActivity {
     public void onCLick5(View view) {
         Toast.makeText(this, "TODO", Toast.LENGTH_SHORT).show();
     }
+
 }

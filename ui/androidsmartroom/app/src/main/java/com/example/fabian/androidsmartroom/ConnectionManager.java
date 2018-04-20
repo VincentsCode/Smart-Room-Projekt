@@ -27,7 +27,7 @@ public class ConnectionManager {
 				String str = "";
 				int port = 2222;
 				Socket client = new Socket();
-				client.connect(new InetSocketAddress("192.168.2.109", port), 700);
+				client.connect(new InetSocketAddress("192.168.178.34", port), 700);
 
 				OutputStream outToServer = client.getOutputStream();
 				InputStream getFromServer = client.getInputStream();

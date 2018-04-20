@@ -33,7 +33,6 @@ public class Menu_Devices extends Fragment{
         if (mView == null)
              mView = view;
         if (tmp == null && mView != null)
-
             tmp = Snackbar.make(mView, "Es konnte keine Verbindung zum Server hergestellt werden", Snackbar.LENGTH_INDEFINITE);
         ConnectionDetector cd = new ConnectionDetector(getActivity());
         String avail = cd.isInternetOn();
