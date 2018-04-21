@@ -7,6 +7,7 @@ import android.widget.Toolbar;
 
 public class AboutProject extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

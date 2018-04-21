@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -99,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }else if (id == R.id.sunday) {
             fragment = new Menu_Sonntag();
         }else if (id == R.id.devices) {
+            Toast.makeText(this, "Lade Geräteliste", Toast.LENGTH_SHORT).show();
             fragment = new Menu_Devices();
         } else {
             fragment = new Menu_Devices();
@@ -119,5 +121,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 
 }

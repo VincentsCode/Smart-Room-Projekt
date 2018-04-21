@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -21,6 +20,7 @@ public class SettingsActivity extends AppCompatActivity {
     Switch training;
     public static EditText serverIp;
     TextView isChecked;
+    boolean isSwitchChecked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,19 +31,7 @@ public class SettingsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         setContentView(R.layout.activity_settings);
-        training = findViewById(R.id.switch1);
-        training.setChecked(true);
-        training.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b) {
-                    Toast.makeText(SettingsActivity.this, "Training aktiviert", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(SettingsActivity.this, "Training deaktiviert", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+
 
 
     }
@@ -69,7 +57,9 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void onCLick4(View view) {
-        Toast.makeText(this, "TODO", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(this, AboutProject.class);
+        startActivity(i);
+
     }
 
     public void onCLick5(View view) {
