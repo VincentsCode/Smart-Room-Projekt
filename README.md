@@ -1,5 +1,5 @@
-# Jufo 2019
- Jufo 2019: Privates Repository 
+# Smart Room Projekt
+ Discontinued
  
 # Software-Locations
   Android-Client: \ui\android\app\build\outputs\apk\debug\app-debug.apk <br>
