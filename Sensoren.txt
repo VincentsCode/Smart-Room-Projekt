@@ -1,4 +1,0 @@
-SENSOREN (Nur RNN)
- - Licht
- - Temperatur
- - Kamera / Kinect
