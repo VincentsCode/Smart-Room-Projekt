@@ -128,7 +128,7 @@ def client_thread(t_conn):
 
             # UI_CLIENT_SENSOR_DATA_REQUEST
             if c_msg == Constants.UI_CLIENT_SENSOR_DATA_REQUEST:
-                # Send Sensor-Data requested by external rpi-server
+                # Send Sensor-Data requested by external rpi-Server
                 pass
 
             # COMMANDS
