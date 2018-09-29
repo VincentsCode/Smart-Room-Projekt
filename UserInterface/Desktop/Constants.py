@@ -16,7 +16,6 @@ UI_CLIENT_COMMAND_IDENTIFIER = "CMD_"                                           
 UI_CLIENT_ADD_DEVICE_IDENTIFIER = "ADD_"                                                             # DONE
 
 
-
 # EXAMPLES
 # UI_CLIENT_COMMAND:        "CMD_Computer0_1"
 # UI_CLIENT_ADD_DEVICE:     "ADD_Computer1_192.168.2.110_1338_3_AN_STANDBY_AUS"
