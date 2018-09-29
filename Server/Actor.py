@@ -35,13 +35,6 @@ class Actor:
         self.connected = False
         self.name = name
 
-        # Create Log-File
-        now = datetime.datetime.now()
-        folder_name = str(now.day) + "_" + str(now.month) + "_" + str(now.year)
-        d = os.path.realpath('.')
-        file = open(d + "\\log\\" + folder_name + "\\" + self.name + ".log", "a")
-        file.close()
-
     def __repr__(self):
         return "<Actor.AdvancedSwitch object: ip={}, port={}, connected={}, state={}, state_count={}, state_names={}>"\
             .format(self.ip, self.port, self.connected, self.state, self.state_count, self.state_names)

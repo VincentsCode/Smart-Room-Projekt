@@ -15,12 +15,6 @@ log_data_requests = False
 # Get current directory
 c_dir = os.path.realpath('.')
 
-# Create Log-Folder
-now = datetime.datetime.now()
-folder_name = str(now.day) + "_" + str(now.month) + "_" + str(now.year)
-if not os.path.exists(c_dir + "\\log\\" + folder_name):
-    os.makedirs(c_dir + "\\log\\" + folder_name)
-
 # Get actors from json
 actors_file_name = c_dir + '\\data\\actors.json'
 actors_file = open(actors_file_name, 'r')
@@ -42,6 +36,7 @@ def connect_missing():
             try:
                 actors[missing_actor].connect()
                 if not b:
+                    now = datetime.datetime.now()
                     c_t1 = "[" + str(now.day) + "." + str(now.month) + "." + str(now.year) + ", " \
                            + str(now.hour) + ":" + str(now.minute) + ":" + str(now.second) + "]"
                     connect_missing_pre = "[SERVER]                 "
@@ -55,6 +50,7 @@ def update_connection_states():
         b = actors[updating_actor].connected
         b2 = actors[updating_actor].check_connection()
         if not b2 and b:
+            now = datetime.datetime.now()
             c_t2 = "[" + str(now.day) + "." + str(now.month) + "." + str(now.year) + ", " \
                    + str(now.hour) + ":" + str(now.minute) + ":" + str(now.second) + "]"
             update_pre = "[SERVER]                 "
@@ -77,22 +73,6 @@ def get_info():
     return info
 
 
-def get_logs():
-    logs = ""
-    for a in actors:
-        a_log = a
-        file = open(c_dir + "\\log\\" + folder_name + "\\" + a + ".log")
-        line = file.readline()
-        while line:
-            a_log += "_" + line.strip()
-            line = file.readline()
-        file.close()
-        logs += a_log
-        logs += "+"
-    logs = logs[0:len(logs) - 1]
-    return logs
-
-
 def client_thread(t_conn):
     pre_client = "[" + str(t_conn.getpeername()[0]) + ":" + str(t_conn.getpeername()[1]) + "]  "
     while True:
@@ -101,6 +81,7 @@ def client_thread(t_conn):
             data = t_conn.recv(Constants.REQUEST_LENGTH)
             if not data:
                 break
+            now = datetime.datetime.now()
             c_msg = str(data, "utf8")
             c_t3 = "[" + str(now.day) + "." + str(now.month) + "." + str(now.year) + ", " \
                    + str(now.hour) + ":" + str(now.minute) + ":" + str(now.second) + "] "
@@ -108,7 +89,6 @@ def client_thread(t_conn):
             while(len(pre_c)) < 47:
                 pre_c += " "
 
-            # REQUESTS
             # UI_CLIENT_DATA_REQUEST
             if c_msg == Constants.UI_CLIENT_DATA_REQUEST:
                 if log_data_requests:
@@ -118,20 +98,11 @@ def client_thread(t_conn):
                     msg += "#"
                 t_conn.sendall(bytes(msg, "utf8"))
 
-            # UI_CLIENT_DEVICES_LOG_REQUEST
-            if c_msg == Constants.UI_CLIENT_DEVICES_LOG_REQUEST:
-                print(pre_c, "Received UI_CLIENT_DEVICES_LOG_REQUEST")
-                msg = get_logs()
-                while len(bytes(msg, "utf8")) < Constants.SERVER_ANSWER_LENGTH:
-                    msg += "#"
-                t_conn.sendall(bytes(msg, "utf8"))
-
             # UI_CLIENT_SENSOR_DATA_REQUEST
             if c_msg == Constants.UI_CLIENT_SENSOR_DATA_REQUEST:
-                # Send Sensor-Data requested by external rpi-Server
+                # TODO Send Sensor-Data requested by external rpi-Server
                 pass
 
-            # COMMANDS
             # UI_CLIENT_COMMAND_IDENTIFIER
             if Constants.UI_CLIENT_COMMAND_IDENTIFIER in c_msg:
                 c_msg = c_msg.replace("#", "")
@@ -196,6 +167,7 @@ def client_thread(t_conn):
                         file.write(all_text)
                         file.close()
                     except:
+                        print("Actor not found.")
                         del actors[n_name]
                 msg = get_info()
                 while len(bytes(msg, "utf8")) < Constants.SERVER_ANSWER_LENGTH:
@@ -227,6 +199,7 @@ for actor_name in actors:
 # CONNECT TO ACTORS
 pre = "[SERVER]                 "
 for actor in actors:
+    now = datetime.datetime.now()
     try:
         actors[actor].connect()
         c_t = "[" + str(now.day) + "." + str(now.month) + "." + str(now.year) + ", " \
@@ -249,6 +222,7 @@ scheduler.start()
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.bind(('', port))
 server_socket.listen(max_clients)
+now = datetime.datetime.now()
 c_t = "[" + str(now.day) + "." + str(now.month) + "." + str(now.year) + ", " \
       + str(now.hour) + ":" + str(now.minute) + ":" + str(now.second) + "]"
 print(c_t, pre, "Server started")
